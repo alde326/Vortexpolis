@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MoviesComponent } from './movies/movies.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MoviesComponent } from './movies/movies.component';
+import { AppRoutingModule } from './app-routing.module'; // ✅ Asegúrate que esto esté bien importado
 
 @NgModule({
   declarations: [
     AppComponent,
-    MoviesComponent
+    MoviesComponent,
+    // Agrega aquí los demás componentes cuando los tengas
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule // ✅ Módulo de rutas importado correctamente
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { } // ✅ Asegúrate de tener esta exportación correctamente

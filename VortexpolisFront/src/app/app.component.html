@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<div class="sidebar">
+  <ul>
+    <li (click)="navigateTo('movies')">Películas</li>
+    <li (click)="navigateTo('clientes')">Clientes</li>
+    <li (click)="navigateTo('compras')">Compras</li>
+    <li (click)="navigateTo('login')">Login</li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
