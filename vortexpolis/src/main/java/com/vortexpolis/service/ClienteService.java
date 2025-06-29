@@ -4,6 +4,8 @@ import com.vortexpolis.model.Cliente;
 import com.vortexpolis.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -14,24 +16,24 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    // Registrar cliente
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     public Cliente guardarCliente(Cliente cliente) {
+        // Encriptar la contraseña antes de guardar
+        cliente.setContraseña(passwordEncoder.encode(cliente.getContraseña()));
         return clienteRepository.save(cliente);
     }
 
-    // Consultar todos los clientes
     public List<Cliente> obtenerTodos() {
         return clienteRepository.findAll();
     }
 
-    // Consultar cliente por ID
     public Optional<Cliente> buscarPorId(Long id) {
         return clienteRepository.findById(id);
     }
 
-    // Buscar cliente por email (opcional para validaciones o login)
     public Optional<Cliente> buscarPorEmail(String email) {
         return clienteRepository.findByEmail(email);
     }
 }
-

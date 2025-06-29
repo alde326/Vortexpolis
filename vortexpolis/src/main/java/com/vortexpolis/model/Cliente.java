@@ -19,20 +19,20 @@ public class Cliente {
     private Long id;
 
     @Email
-    @NotBlank
+    @NotBlank(message = "El email es obligatorio")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "El teléfono es obligatorio")
     private String telefono;
 
-    @NotBlank
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 
-    @NotBlank
+    @NotBlank(message = "El apellido es obligatorio")
     private String apellido;
 
-    @NotBlank
-    private String contraseña; // Recuerda encriptarla cuando trabajes el servicio
+    @NotBlank(message = "La contraseña es obligatoria")
+    private String contraseña;
 
     private Boolean estado = true;
 
