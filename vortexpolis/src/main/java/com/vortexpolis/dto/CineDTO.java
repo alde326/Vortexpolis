@@ -5,6 +5,7 @@ public class CineDTO {
     private Long id;
     private String nombre;
     private String direccion;
+    private String telefono;
 
     // Getters y Setters
 
@@ -30,5 +31,13 @@ public class CineDTO {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }

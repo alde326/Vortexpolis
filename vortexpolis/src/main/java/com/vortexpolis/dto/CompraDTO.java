@@ -1,13 +1,20 @@
 package com.vortexpolis.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class CompraDTO {
 
     private Long id;
-    private Long clienteId;
-    private LocalDateTime fechaHora;
+    private LocalDateTime fecha;
     private Double total;
+    private String estado;
+
+    private Long clienteId; // Solo referenciamos el ID del cliente
+
+    private List<Long> entradasIds; // Lista de IDs de entradas asociadas
+
+    private Long pagoId; // ID del pago asociado
 
     // Getters y Setters
 
@@ -19,20 +26,12 @@ public class CompraDTO {
         this.id = id;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public LocalDateTime getFecha() {
+        return fecha;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
-    }
-
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
-    }
-
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
     public Double getTotal() {
@@ -41,5 +40,37 @@ public class CompraDTO {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public List<Long> getEntradasIds() {
+        return entradasIds;
+    }
+
+    public void setEntradasIds(List<Long> entradasIds) {
+        this.entradasIds = entradasIds;
+    }
+
+    public Long getPagoId() {
+        return pagoId;
+    }
+
+    public void setPagoId(Long pagoId) {
+        this.pagoId = pagoId;
     }
 }
