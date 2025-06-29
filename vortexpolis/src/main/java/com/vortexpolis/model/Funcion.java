@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Data 
 @NoArgsConstructor
@@ -20,6 +21,8 @@ public class Funcion {
     private LocalDate fecha;
     private LocalTime hora;
     private String sala;
+
+    private Boolean estado = true; // ✅ Aquí lo agregas
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cine")
