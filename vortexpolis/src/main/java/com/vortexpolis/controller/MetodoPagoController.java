@@ -1,5 +1,7 @@
 package com.vortexpolis.controller;
 
+import com.vortexpolis.dto.MetodoPagoDTO;
+import com.vortexpolis.mapper.MetodoPagoMapper;
 import com.vortexpolis.model.MetodoPago;
 import com.vortexpolis.service.MetodoPagoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,32 +17,40 @@ public class MetodoPagoController {
     @Autowired
     private MetodoPagoService metodoPagoService;
 
+    @Autowired
+    private MetodoPagoMapper metodoPagoMapper;
+
     @PostMapping
-    public MetodoPago crearMetodoPago(@RequestBody MetodoPago metodoPago) {
-        return metodoPagoService.guardar(metodoPago);
+    public MetodoPagoDTO crearMetodoPago(@RequestBody MetodoPagoDTO metodoPagoDTO) {
+        MetodoPago metodoPago = metodoPagoMapper.toEntity(metodoPagoDTO);
+        MetodoPago metodoGuardado = metodoPagoService.guardar(metodoPago);
+        return metodoPagoMapper.toDTO(metodoGuardado);
     }
 
     @GetMapping
-    public List<MetodoPago> listarMetodosPago() {
-        return metodoPagoService.listarTodos();
+    public List<MetodoPagoDTO> listarMetodosPago() {
+        List<MetodoPago> metodosPago = metodoPagoService.listarTodos();
+        return metodoPagoMapper.toDTOList(metodosPago);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MetodoPago> obtenerMetodoPagoPorId(@PathVariable Long id) {
+    public ResponseEntity<MetodoPagoDTO> obtenerMetodoPagoPorId(@PathVariable Long id) {
         MetodoPago metodoPago = metodoPagoService.obtenerPorId(id);
         if (metodoPago != null) {
-            return ResponseEntity.ok(metodoPago);
+            return ResponseEntity.ok(metodoPagoMapper.toDTO(metodoPago));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MetodoPago> actualizarMetodoPago(@PathVariable Long id, @RequestBody MetodoPago metodoPago) {
+    public ResponseEntity<MetodoPagoDTO> actualizarMetodoPago(@PathVariable Long id, @RequestBody MetodoPagoDTO metodoPagoDTO) {
         MetodoPago metodoExistente = metodoPagoService.obtenerPorId(id);
         if (metodoExistente != null) {
-            metodoPago.setId(id);
-            return ResponseEntity.ok(metodoPagoService.actualizar(metodoPago));
+            MetodoPago metodoActualizado = metodoPagoMapper.toEntity(metodoPagoDTO);
+            metodoActualizado.setId(id);
+            MetodoPago metodoGuardado = metodoPagoService.actualizar(metodoActualizado);
+            return ResponseEntity.ok(metodoPagoMapper.toDTO(metodoGuardado));
         } else {
             return ResponseEntity.notFound().build();
         }

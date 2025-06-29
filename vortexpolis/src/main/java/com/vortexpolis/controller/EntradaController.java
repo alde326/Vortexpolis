@@ -1,5 +1,7 @@
 package com.vortexpolis.controller;
 
+import com.vortexpolis.dto.EntradaDTO;
+import com.vortexpolis.mapper.EntradaMapper;
 import com.vortexpolis.model.Entrada;
 import com.vortexpolis.service.EntradaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,36 +17,42 @@ public class EntradaController {
     @Autowired
     private EntradaService entradaService;
 
+    @Autowired
+    private EntradaMapper entradaMapper;
+
     @GetMapping
-    public List<Entrada> obtenerTodas() {
-        return entradaService.listarTodas();
+    public List<EntradaDTO> obtenerTodas() {
+        List<Entrada> entradas = entradaService.listarTodas();
+        return entradaMapper.toDTOList(entradas);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Entrada> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<EntradaDTO> obtenerPorId(@PathVariable Long id) {
         Entrada entrada = entradaService.obtenerPorId(id);
         if (entrada != null) {
-            return ResponseEntity.ok(entrada);
+            return ResponseEntity.ok(entradaMapper.toDTO(entrada));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
-    public Entrada crear(@RequestBody Entrada entrada) {
-        return entradaService.guardar(entrada);
+    public EntradaDTO crear(@RequestBody EntradaDTO entradaDTO) {
+        Entrada entrada = entradaMapper.toEntity(entradaDTO);
+        Entrada entradaGuardada = entradaService.guardar(entrada);
+        return entradaMapper.toDTO(entradaGuardada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Entrada> actualizar(@PathVariable Long id, @RequestBody Entrada entrada) {
+    public ResponseEntity<EntradaDTO> actualizar(@PathVariable Long id, @RequestBody EntradaDTO entradaDTO) {
         Entrada entradaExistente = entradaService.obtenerPorId(id);
         if (entradaExistente == null) {
             return ResponseEntity.notFound().build();
         }
 
-        entrada.setId(id); // Asegurarse de que el ID sea correcto
-        Entrada entradaActualizada = entradaService.actualizar(entrada);
-        return ResponseEntity.ok(entradaActualizada);
+        entradaDTO.setId(id); // Asegurarse de que el ID sea correcto
+        Entrada entradaActualizada = entradaService.actualizar(entradaMapper.toEntity(entradaDTO));
+        return ResponseEntity.ok(entradaMapper.toDTO(entradaActualizada));
     }
 
     @DeleteMapping("/{id}")

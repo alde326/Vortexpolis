@@ -1,5 +1,7 @@
 package com.vortexpolis.controller;
 
+import com.vortexpolis.dto.SalaDTO;
+import com.vortexpolis.mapper.SalaMapper;
 import com.vortexpolis.model.Sala;
 import com.vortexpolis.service.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,33 +17,40 @@ public class SalaController {
     @Autowired
     private SalaService salaService;
 
+    @Autowired
+    private SalaMapper salaMapper;
+
     @GetMapping
-    public List<Sala> listarSalas() {
-        return salaService.listarTodas();
+    public List<SalaDTO> listarSalas() {
+        List<Sala> salas = salaService.listarTodas();
+        return salaMapper.toDTOList(salas);
     }
 
     @PostMapping
-    public Sala crearSala(@RequestBody Sala sala) {
-        return salaService.guardar(sala);
+    public SalaDTO crearSala(@RequestBody SalaDTO salaDTO) {
+        Sala sala = salaMapper.toEntity(salaDTO);
+        Sala salaGuardada = salaService.guardar(sala);
+        return salaMapper.toDTO(salaGuardada);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sala> obtenerSalaPorId(@PathVariable Long id) {
+    public ResponseEntity<SalaDTO> obtenerSalaPorId(@PathVariable Long id) {
         Sala sala = salaService.obtenerPorId(id);
         if (sala != null) {
-            return ResponseEntity.ok(sala);
+            return ResponseEntity.ok(salaMapper.toDTO(sala));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sala> actualizarSala(@PathVariable Long id, @RequestBody Sala sala) {
+    public ResponseEntity<SalaDTO> actualizarSala(@PathVariable Long id, @RequestBody SalaDTO salaDTO) {
         Sala salaExistente = salaService.obtenerPorId(id);
         if (salaExistente != null) {
-            sala.setId(id); // Asegurarse de actualizar la sala correcta
-            Sala salaActualizada = salaService.actualizar(sala);
-            return ResponseEntity.ok(salaActualizada);
+            Sala salaActualizada = salaMapper.toEntity(salaDTO);
+            salaActualizada.setId(id); // Asegurarse de actualizar la sala correcta
+            Sala salaGuardada = salaService.actualizar(salaActualizada);
+            return ResponseEntity.ok(salaMapper.toDTO(salaGuardada));
         } else {
             return ResponseEntity.notFound().build();
         }

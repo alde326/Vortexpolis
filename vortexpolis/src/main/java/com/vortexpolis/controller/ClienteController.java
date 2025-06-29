@@ -1,5 +1,7 @@
 package com.vortexpolis.controller;
 
+import com.vortexpolis.dto.ClienteDTO;
+import com.vortexpolis.mapper.ClienteMapper;
 import com.vortexpolis.model.Cliente;
 import com.vortexpolis.service.ClienteService;
 
@@ -19,24 +21,31 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    // Registrar cliente
+    @Autowired
+    private ClienteMapper clienteMapper;
+
+    // Registrar cliente (recibe y devuelve DTO)
     @PostMapping
-    public ResponseEntity<Cliente> registrarCliente(@Valid @RequestBody Cliente cliente) {
+    public ResponseEntity<ClienteDTO> registrarCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
+        Cliente cliente = clienteMapper.toEntity(clienteDTO);
         Cliente nuevoCliente = clienteService.guardarCliente(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoCliente);
+        ClienteDTO nuevoClienteDTO = clienteMapper.toDTO(nuevoCliente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoClienteDTO);
     }
 
-    // Listar todos los clientes
+    // Listar todos los clientes (devuelve DTOs)
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarClientes() {
-        return ResponseEntity.ok(clienteService.obtenerTodos());
+    public ResponseEntity<List<ClienteDTO>> listarClientes() {
+        List<Cliente> clientes = clienteService.obtenerTodos();
+        List<ClienteDTO> clientesDTO = clienteMapper.toDTOList(clientes);
+        return ResponseEntity.ok(clientesDTO);
     }
 
-    // Consultar cliente por ID
+    // Consultar cliente por ID (devuelve DTO)
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id) {
+    public ResponseEntity<ClienteDTO> obtenerClientePorId(@PathVariable Long id) {
         return clienteService.buscarPorId(id)
-                .map(cliente -> ResponseEntity.ok(cliente))
+                .map(cliente -> ResponseEntity.ok(clienteMapper.toDTO(cliente)))
                 .orElse(ResponseEntity.notFound().build());
     }
 }

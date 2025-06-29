@@ -1,5 +1,7 @@
 package com.vortexpolis.controller;
 
+import com.vortexpolis.dto.PagoDTO;
+import com.vortexpolis.mapper.PagoMapper;
 import com.vortexpolis.model.Pago;
 import com.vortexpolis.service.PagoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,32 +17,40 @@ public class PagoController {
     @Autowired
     private PagoService pagoService;
 
+    @Autowired
+    private PagoMapper pagoMapper;
+
     @PostMapping
-    public Pago crearPago(@RequestBody Pago pago) {
-        return pagoService.guardar(pago);
+    public PagoDTO crearPago(@RequestBody PagoDTO pagoDTO) {
+        Pago pago = pagoMapper.toEntity(pagoDTO);
+        Pago pagoGuardado = pagoService.guardar(pago);
+        return pagoMapper.toDTO(pagoGuardado);
     }
 
     @GetMapping
-    public List<Pago> listarPagos() {
-        return pagoService.listarTodos();
+    public List<PagoDTO> listarPagos() {
+        List<Pago> pagos = pagoService.listarTodos();
+        return pagoMapper.toDTOList(pagos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pago> obtenerPagoPorId(@PathVariable Long id) {
+    public ResponseEntity<PagoDTO> obtenerPagoPorId(@PathVariable Long id) {
         Pago pago = pagoService.obtenerPorId(id);
         if (pago != null) {
-            return ResponseEntity.ok(pago);
+            return ResponseEntity.ok(pagoMapper.toDTO(pago));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pago> actualizarPago(@PathVariable Long id, @RequestBody Pago pago) {
+    public ResponseEntity<PagoDTO> actualizarPago(@PathVariable Long id, @RequestBody PagoDTO pagoDTO) {
         Pago pagoExistente = pagoService.obtenerPorId(id);
         if (pagoExistente != null) {
-            pago.setId(id);
-            return ResponseEntity.ok(pagoService.actualizar(pago));
+            Pago pagoActualizado = pagoMapper.toEntity(pagoDTO);
+            pagoActualizado.setId(id);
+            Pago pagoGuardado = pagoService.actualizar(pagoActualizado);
+            return ResponseEntity.ok(pagoMapper.toDTO(pagoGuardado));
         } else {
             return ResponseEntity.notFound().build();
         }

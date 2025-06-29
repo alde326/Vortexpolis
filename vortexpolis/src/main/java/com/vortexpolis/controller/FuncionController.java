@@ -1,5 +1,7 @@
 package com.vortexpolis.controller;
 
+import com.vortexpolis.dto.FuncionDTO;
+import com.vortexpolis.mapper.FuncionMapper;
 import com.vortexpolis.model.Funcion;
 import com.vortexpolis.service.FuncionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +17,23 @@ public class FuncionController {
     @Autowired
     private FuncionService funcionService;
 
+    @Autowired
+    private FuncionMapper funcionMapper;
+
     @PostMapping
-    public Funcion crearFuncion(@RequestBody Funcion funcion) {
-        return funcionService.crearFuncion(funcion);
+    public FuncionDTO crearFuncion(@RequestBody FuncionDTO funcionDTO) {
+        Funcion funcion = funcionMapper.toEntity(funcionDTO);
+        Funcion funcionGuardada = funcionService.crearFuncion(funcion);
+        return funcionMapper.toDTO(funcionGuardada);
     }
 
     @GetMapping("/pelicula/{peliculaId}")
-    public ResponseEntity<List<Funcion>> listarFuncionesPorPelicula(@PathVariable Long peliculaId) {
+    public ResponseEntity<List<FuncionDTO>> listarFuncionesPorPelicula(@PathVariable Long peliculaId) {
         List<Funcion> funciones = funcionService.listarFuncionesPorPelicula(peliculaId);
         if (funciones.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.ok(funciones);
+            return ResponseEntity.ok(funcionMapper.toDTOList(funciones));
         }
     }
 }

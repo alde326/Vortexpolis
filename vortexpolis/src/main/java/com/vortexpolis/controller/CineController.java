@@ -1,5 +1,7 @@
 package com.vortexpolis.controller;
 
+import com.vortexpolis.dto.CineDTO;
+import com.vortexpolis.mapper.CineMapper;
 import com.vortexpolis.model.Cine;
 import com.vortexpolis.service.CineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,40 +17,54 @@ public class CineController {
     @Autowired
     private CineService cineService;
 
+    @Autowired
+    private CineMapper cineMapper;
+
+    // Obtener todos los cines (devuelve DTOs)
     @GetMapping
-    public List<Cine> obtenerTodos() {
-        return cineService.listarTodos();
+    public ResponseEntity<List<CineDTO>> obtenerTodos() {
+        List<Cine> cines = cineService.listarTodos();
+        List<CineDTO> cinesDTO = cineMapper.toDTOList(cines);
+        return ResponseEntity.ok(cinesDTO);
     }
 
+    // Obtener cine por ID (devuelve DTO)
     @GetMapping("/{id}")
-    public ResponseEntity<Cine> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<CineDTO> obtenerPorId(@PathVariable Long id) {
         Cine cine = cineService.obtenerPorId(id);
         if (cine != null) {
-            return ResponseEntity.ok(cine);
+            CineDTO cineDTO = cineMapper.toDTO(cine);
+            return ResponseEntity.ok(cineDTO);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    // Crear cine (recibe y devuelve DTO)
     @PostMapping
-    public Cine crear(@RequestBody Cine cine) {
-        return cineService.guardar(cine);
+    public ResponseEntity<CineDTO> crear(@RequestBody CineDTO cineDTO) {
+        Cine cine = cineMapper.toEntity(cineDTO);
+        Cine cineGuardado = cineService.guardar(cine);
+        CineDTO cineGuardadoDTO = cineMapper.toDTO(cineGuardado);
+        return ResponseEntity.ok(cineGuardadoDTO);
     }
 
+    // Actualizar cine (recibe y devuelve DTO)
     @PutMapping("/{id}")
-    public ResponseEntity<Cine> actualizar(@PathVariable Long id, @RequestBody Cine cine) {
-        // Validar si el cine existe
+    public ResponseEntity<CineDTO> actualizar(@PathVariable Long id, @RequestBody CineDTO cineDTO) {
         Cine cineExistente = cineService.obtenerPorId(id);
         if (cineExistente == null) {
             return ResponseEntity.notFound().build();
         }
 
-        // Actualizar los campos
-        cine.setId(id); // Asegurarse de que el ID sea el correcto
-        Cine cineActualizado = cineService.actualizar(cine);
-        return ResponseEntity.ok(cineActualizado);
+        // Asegurar que el ID sea correcto
+        cineDTO.setId(id);
+        Cine cineActualizado = cineService.actualizar(cineMapper.toEntity(cineDTO));
+        CineDTO cineActualizadoDTO = cineMapper.toDTO(cineActualizado);
+        return ResponseEntity.ok(cineActualizadoDTO);
     }
 
+    // Eliminar cine
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         Cine cine = cineService.obtenerPorId(id);
