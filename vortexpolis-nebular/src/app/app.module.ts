@@ -7,6 +7,7 @@ import { MoviesComponent } from './pages/movies/movies.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateMovieComponent } from './pages/create-movie/create-movie.component';
 import { ListMoviesComponent } from './pages/list-movies/list-movies.component';
+import { FuncionesComponent } from './pages/funciones/funciones.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -36,7 +37,8 @@ import { MatTableModule } from '@angular/material/table';
     MoviesComponent,
     CreateMovieComponent,
     ListMoviesComponent,
-    CinesComponent
+    CinesComponent,
+    FuncionesComponent
   ],
   imports: [
    BrowserModule,

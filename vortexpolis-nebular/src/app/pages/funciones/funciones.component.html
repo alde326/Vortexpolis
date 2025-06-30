@@ -1,0 +1,82 @@
+<div class="funcion-form">
+  <h2>{{ editando ? 'Editar Función' : 'Nueva Función' }}</h2>
+
+  <form [formGroup]="funcionForm" (ngSubmit)="guardar()">
+
+    <mat-form-field class="full-width">
+        <mat-label>ID Película</mat-label>
+        <input matInput formControlName="peliculaId" required>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Fecha y Hora</mat-label>
+      <input matInput type="datetime-local" formControlName="fechaHora" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>ID de la Sala</mat-label>
+      <input matInput type="number" formControlName="salaId" required />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>ID del Cine</mat-label>
+        <input matInput formControlName="cineId" required>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      {{ editando ? 'Actualizar' : 'Guardar' }}
+    </button>
+
+    <button mat-raised-button color="warn" type="button" (click)="cancelar()" *ngIf="editando">
+      Cancelar
+    </button>
+  </form>
+</div>
+
+<hr>
+
+<div class="funcion-list">
+  <h2>Lista de Funciones</h2>
+
+  <table mat-table [dataSource]="funciones" class="mat-elevation-z8 full-width">
+
+    <!-- FechaHora Column -->
+    <ng-container matColumnDef="fechaHora">
+      <th mat-header-cell *matHeaderCellDef> Fecha y Hora </th>
+      <td mat-cell *matCellDef="let funcion"> {{ funcion.fechaHora | date:'short' }} </td>
+    </ng-container>
+
+    <!-- Sala Column -->
+    <ng-container matColumnDef="salaId">
+      <th mat-header-cell *matHeaderCellDef> Sala </th>
+      <td mat-cell *matCellDef="let funcion"> {{ funcion.salaId }} </td>
+    </ng-container>
+
+    <!-- Estado Column -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let funcion">
+        <span [ngStyle]="{ color: funcion.estado ? 'green' : 'red' }">
+          {{ funcion.estado ? 'Activa' : 'Inactiva' }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Acciones Column -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let funcion">
+        <button mat-icon-button color="accent" (click)="editar(funcion)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="desactivar(funcion)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

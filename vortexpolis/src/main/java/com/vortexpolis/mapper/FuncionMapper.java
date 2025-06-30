@@ -1,10 +1,8 @@
 package com.vortexpolis.mapper;
 
 import com.vortexpolis.dto.FuncionDTO;
-//import com.vortexpolis.model.Cine;
 import com.vortexpolis.model.Funcion;
 import com.vortexpolis.model.Pelicula;
-import com.vortexpolis.model.Sala;
 import org.mapstruct.*;
 
 import java.time.LocalDateTime;
@@ -13,27 +11,25 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface FuncionMapper {
 
-    // Entity to DTO
     @Mappings({
-        @Mapping(source = "pelicula.id", target = "peliculaId"), 
+        @Mapping(source = "pelicula.id", target = "peliculaId"),
+        @Mapping(source = "sala", target = "salaId", qualifiedByName = "mapSalaStringToId"),
         @Mapping(target = "fechaHora", expression = "java(mapFechaHora(funcion.getFecha(), funcion.getHora()))"),
         @Mapping(source = "estado", target = "estado")
     })
     FuncionDTO toDTO(Funcion funcion);
 
-    // DTO to Entity
     @Mappings({
         @Mapping(target = "pelicula", expression = "java(mapPelicula(funcionDTO.getPeliculaId()))"),
         @Mapping(target = "fecha", expression = "java(mapFecha(funcionDTO.getFechaHora()))"),
         @Mapping(target = "hora", expression = "java(mapHora(funcionDTO.getFechaHora()))"),
+        @Mapping(source = "salaId", target = "sala", qualifiedByName = "mapSalaIdToString"),
         @Mapping(target = "cine", ignore = true),
-        @Mapping(target = "entradas", ignore = true),
-        @Mapping(target = "sala", ignore = true) // 👈 Este campo texto también se ignora por ahora
+        @Mapping(target = "entradas", ignore = true)
     })
     Funcion toEntity(FuncionDTO funcionDTO);
 
     List<FuncionDTO> toDTOList(List<Funcion> funciones);
-
     List<Funcion> toEntityList(List<FuncionDTO> funcionDTOs);
 
     // Métodos auxiliares
@@ -68,12 +64,18 @@ public interface FuncionMapper {
         return pelicula;
     }
 
-    default Sala mapSala(Long id) {
-        if (id == null) {
+    // 🔥 Aquí estaban faltando las anotaciones @Named
+    @Named("mapSalaIdToString")
+    default String mapSalaIdToString(Long salaId) {
+        return salaId != null ? String.valueOf(salaId) : null;
+    }
+
+    @Named("mapSalaStringToId")
+    default Long mapSalaStringToId(String sala) {
+        try {
+            return sala != null ? Long.parseLong(sala) : null;
+        } catch (NumberFormatException e) {
             return null;
         }
-        Sala sala = new Sala();
-        sala.setId(id);
-        return sala;
     }
 }

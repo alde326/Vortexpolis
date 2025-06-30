@@ -22,9 +22,15 @@ public class FuncionController {
 
     @PostMapping
     public FuncionDTO crearFuncion(@RequestBody FuncionDTO funcionDTO) {
-        Funcion funcion = funcionMapper.toEntity(funcionDTO);
-        Funcion funcionGuardada = funcionService.crearFuncion(funcion);
+        // ✅ Aquí ya no haces el mapeo, el service lo hace
+        Funcion funcionGuardada = funcionService.crearFuncion(funcionDTO);
         return funcionMapper.toDTO(funcionGuardada);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<FuncionDTO>> listarTodasLasFunciones() {
+        List<Funcion> funciones = funcionService.listarTodas();
+        return ResponseEntity.ok(funcionMapper.toDTOList(funciones));
     }
 
     @GetMapping("/pelicula/{peliculaId}")

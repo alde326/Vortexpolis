@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CreateMovieComponent } from './create-movie/create-movie.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
 import { CinesComponent } from './cines/cines.component';
+import { FuncionesComponent } from './funciones/funciones.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CinesComponent } from './cines/cines.component';
     ComprasComponent,
     CreateMovieComponent,
     ListMoviesComponent,
-    CinesComponent
+    CinesComponent,
+    FuncionesComponent
   ],
   imports: [
     BrowserModule,
