@@ -2,6 +2,7 @@ package com.vortexpolis.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -35,7 +36,7 @@ public class Compra {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Entrada> entradas;
+    private List<Entrada> entradas = new ArrayList<>();
 
     @OneToOne(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Pago pago;

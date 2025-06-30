@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Pelicula } from './pelicula.model';
-import { PeliculaService } from '../services/pelicula.service';
+import { PeliculaService } from '../../services/pelicula.service';
+import { Pelicula } from '../../models/pelicula.model';
 
 @Component({
   selector: 'app-movies',
@@ -9,9 +9,9 @@ import { PeliculaService } from '../services/pelicula.service';
 })
 export class MoviesComponent implements OnInit {
 
-  peliculas: Pelicula[] = []; // 👉 Esta es la que debe aparecer en el HTML
+  peliculas: Pelicula[] = [];
 
-  constructor(private peliculaService: PeliculaService) { }
+  constructor(private peliculaService: PeliculaService) {}
 
   ngOnInit(): void {
     this.cargarPeliculas();
@@ -19,7 +19,7 @@ export class MoviesComponent implements OnInit {
 
   cargarPeliculas() {
     this.peliculaService.getPeliculas().subscribe(data => {
-      console.log('Películas recibidas:', data); // 👉 Agrega este log para confirmar
+      console.log('Películas recibidas:', data);
       this.peliculas = data;
     });
   }

@@ -1,0 +1,16 @@
+<div *ngIf="peliculas.length === 0">
+  <p>No hay películas para mostrar.</p>
+</div>
+
+<div class="movies-container" *ngIf="peliculas.length > 0">
+  <nb-card *ngFor="let pelicula of peliculas" class="movie-card">
+    <nb-card-header>{{ pelicula.titulo }}</nb-card-header>
+    <nb-card-body>
+      <img [src]="pelicula.imagenUrl" alt="{{pelicula.titulo}}" class="movie-image">
+      <p>{{ pelicula.descripcion }}</p>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton status="primary">Ver película</button>
+    </nb-card-footer>
+  </nb-card>
+</div>

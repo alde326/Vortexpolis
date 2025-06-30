@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Data
@@ -28,6 +29,6 @@ public class Pelicula {
     private Boolean estado = true;
 
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Funcion> funciones;
+    private List<Funcion> funciones = new ArrayList<>();
 }
 

@@ -22,7 +22,7 @@ public class Funcion {
     private LocalTime hora;
     private String sala;
 
-    private Boolean estado = true; // ✅ Aquí lo agregas
+    private Boolean estado = true; 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cine")
