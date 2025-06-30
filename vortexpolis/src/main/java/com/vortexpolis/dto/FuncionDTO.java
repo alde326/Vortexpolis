@@ -9,7 +9,6 @@ public class FuncionDTO {
     private Long salaId;
     private LocalDateTime fechaHora;
     private Boolean estado;
-
     // Getters y Setters
 
     public Long getId() {
@@ -28,8 +27,12 @@ public class FuncionDTO {
         this.peliculaId = peliculaId;
     }
 
-    public Long getSalaId() {
+    public Long getSalaId() { 
         return salaId;
+    }
+
+    public void setSalaId(Long salaId) {
+        this.salaId = salaId;
     }
 
     public Boolean getEstado() {
@@ -38,10 +41,6 @@ public class FuncionDTO {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
-    }
-
-    public void setSalaId(Long salaId) {
-        this.salaId = salaId;
     }
 
     public LocalDateTime getFechaHora() {

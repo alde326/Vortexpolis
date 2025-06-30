@@ -46,6 +46,11 @@ public class PeliculaService {
         return peliculaRepository.save(peliculaExistente);
     }
 
+    public Pelicula obtenerPeliculaConFunciones(Long id) {
+        return peliculaRepository.findByIdWithFunciones(id)
+                .orElseThrow(() -> new RuntimeException("Película no encontrada con ID: " + id));
+    }
+
     // Inhabilitar una película (Soft delete)
     public void inhabilitarPelicula(Long id) {
         Pelicula peliculaExistente = peliculaRepository.findById(id)

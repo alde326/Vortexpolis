@@ -15,8 +15,4 @@ public class Sala {
 
     private String nombre;
     private Integer capacidad;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_funcion")
-    private Funcion funcion;
 }

@@ -1,4 +1,5 @@
 package com.vortexpolis.dto;
+import java.util.List;
 
 public class CineDTO {
 
@@ -6,6 +7,8 @@ public class CineDTO {
     private String nombre;
     private String direccion;
     private String telefono;
+
+    private List<FuncionDTO> funciones;
 
     // Getters y Setters
 
@@ -40,4 +43,13 @@ public class CineDTO {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public List<FuncionDTO> getFunciones() {
+        return funciones;
+    }
+
+    public void setFunciones(List<FuncionDTO> funciones) {
+        this.funciones = funciones;
+    }
+
 }

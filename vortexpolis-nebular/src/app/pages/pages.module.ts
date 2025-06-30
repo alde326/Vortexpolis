@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { CreateMovieComponent } from './create-movie/create-movie.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
+import { CinesComponent } from './cines/cines.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ListMoviesComponent } from './list-movies/list-movies.component';
     ClientesComponent,
     ComprasComponent,
     CreateMovieComponent,
-    ListMoviesComponent
+    ListMoviesComponent,
+    CinesComponent
   ],
   imports: [
     BrowserModule,

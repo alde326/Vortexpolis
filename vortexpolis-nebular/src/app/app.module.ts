@@ -21,6 +21,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CinesComponent } from './pages/cines/cines.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+
+
 
 
 
@@ -31,6 +36,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MoviesComponent,
     CreateMovieComponent,
     ListMoviesComponent,
+    CinesComponent
   ],
   imports: [
    BrowserModule,
@@ -51,6 +57,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatListModule,
     MatButtonModule,
     MatCardModule,
+    ReactiveFormsModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

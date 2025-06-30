@@ -1,0 +1,70 @@
+<div class="cine-form">
+  <h2>{{ editando ? 'Editar Cine' : 'Nuevo Cine' }}</h2>
+
+  <form [formGroup]="cineForm" (ngSubmit)="guardar()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre del Cine</mat-label>
+      <input matInput formControlName="nombre" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="direccion" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono" required />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      {{ editando ? 'Actualizar' : 'Guardar' }}
+    </button>
+    <button mat-raised-button color="warn" type="button" (click)="cancelar()" *ngIf="editando">
+      Cancelar
+    </button>
+  </form>
+</div>
+
+<hr>
+
+<div class="cine-list">
+  <h2>Lista de Cines</h2>
+
+  <table mat-table [dataSource]="cines" class="mat-elevation-z8 full-width">
+
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let cine"> {{cine.nombre}} </td>
+    </ng-container>
+
+    <!-- Dirección Column -->
+    <ng-container matColumnDef="direccion">
+      <th mat-header-cell *matHeaderCellDef> Dirección </th>
+      <td mat-cell *matCellDef="let cine"> {{cine.direccion}} </td>
+    </ng-container>
+
+    <!-- Teléfono Column -->
+    <ng-container matColumnDef="telefono">
+      <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+      <td mat-cell *matCellDef="let cine"> {{cine.telefono}} </td>
+    </ng-container>
+
+    <!-- Acciones Column -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let cine">
+        <button mat-icon-button color="accent" (click)="editar(cine)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminar(cine.id!)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

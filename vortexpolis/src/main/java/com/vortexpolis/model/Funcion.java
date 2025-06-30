@@ -35,6 +35,4 @@ public class Funcion {
     @OneToMany(mappedBy = "funcion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Entrada> entradas;
 
-    @OneToOne(mappedBy = "funcion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Sala salaDetalle;
 }

@@ -6,9 +6,8 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {FuncionMapper.class})
 public interface CineMapper {
-
     CineDTO toDTO(Cine cine);
 
     Cine toEntity(CineDTO cineDTO);
