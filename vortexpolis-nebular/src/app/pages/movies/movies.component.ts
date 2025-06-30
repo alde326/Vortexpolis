@@ -11,9 +11,10 @@ export class MoviesComponent implements OnInit {
 
   peliculas: Pelicula[] = [];
 
-  constructor(private peliculaService: PeliculaService) {}
+  constructor(private peliculaService: PeliculaService) { }
 
   ngOnInit(): void {
+    console.log('Componente cargado');
     this.cargarPeliculas();
   }
 

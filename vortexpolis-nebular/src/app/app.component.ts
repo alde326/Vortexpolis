@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'vortexpolis-nebular';
+
+  menuItems = [
+    { title: 'Películas', link: '/movies' }
+  ];
 }
