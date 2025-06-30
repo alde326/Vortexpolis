@@ -23,9 +23,10 @@ export class PeliculaService {
   }
 
   // Crear nueva película
-  crearPelicula(pelicula: Pelicula): Observable<Pelicula> {
-    return this.http.post<Pelicula>(this.apiUrl, pelicula);
+  crearPelicula(peliculaData: any) {
+    return this.http.post('http://localhost:8080/api/peliculas', peliculaData);
   }
+
 
   // Actualizar película
   actualizarPelicula(id: number, pelicula: Pelicula): Observable<Pelicula> {

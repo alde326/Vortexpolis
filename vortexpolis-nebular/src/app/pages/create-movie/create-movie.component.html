@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">Crear Película</mat-toolbar>
+
+<mat-card class="form-card">
+  <form (ngSubmit)="crearPelicula()">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="pelicula.titulo" name="titulo" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput [(ngModel)]="pelicula.descripcion" name="descripcion" required></textarea>
+    </mat-form-field>
+
+    <input type="file" (change)="onFileSelected($event)" required>
+
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </form>
+</mat-card>

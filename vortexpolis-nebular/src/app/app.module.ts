@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateMovieComponent } from './pages/create-movie/create-movie.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,13 +16,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MoviesComponent
+    MoviesComponent,
+    CreateMovieComponent
   ],
   imports: [
    BrowserModule,
@@ -30,6 +36,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     HttpClientModule,
 
     // 👇 Estos son los módulos de Angular Material necesarios
+    MatInputModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    FormsModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
     MatToolbarModule,

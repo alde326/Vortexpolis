@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 
 import lombok.Data;
@@ -26,6 +27,7 @@ public class Pelicula {
     private String titulo;
     private String descripcion;
     private String imagenUrl;
+    @Column(name = "activa", nullable = false)
     private Boolean estado = true;
 
     @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
