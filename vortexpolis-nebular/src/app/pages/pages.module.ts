@@ -11,6 +11,8 @@ import { CreateMovieComponent } from './create-movie/create-movie.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
 import { CinesComponent } from './cines/cines.component';
 import { FuncionesComponent } from './funciones/funciones.component';
+import { SeleccionarFuncionComponent } from './seleccionar-funcion/seleccionar-funcion-component';
+import { FormularioCompraComponent } from './formulario-compra/formulario-compra.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { FuncionesComponent } from './funciones/funciones.component';
     CreateMovieComponent,
     ListMoviesComponent,
     CinesComponent,
-    FuncionesComponent
+    FuncionesComponent,
+    SeleccionarFuncionComponent,
+    FormularioCompraComponent
   ],
   imports: [
     BrowserModule,

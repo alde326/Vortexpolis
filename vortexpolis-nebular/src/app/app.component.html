@@ -1,21 +1,41 @@
 <mat-sidenav-container class="sidenav-container">
 
+  <!-- Sidebar -->
   <mat-sidenav #sidenav="matSidenav" mode="side" opened class="sidenav">
+    <mat-toolbar color="accent" class="sidenav-header">
+      Menú
+    </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/movies" routerLinkActive="active-link">Películas</a>
-      <a mat-list-item routerLink="/create-movie">Crear Película</a> 
-      <a mat-list-item routerLink="/listpeliculas">Listar Películas</a> 
-      <a mat-list-item routerLink="/listcines">Listar Cines</a> 
-      <a mat-list-item routerLink="/listFunciones">Listar Funciones</a>
+      <a mat-list-item routerLink="/movies" routerLinkActive="active-link">
+        <mat-icon matListIcon>movie</mat-icon>
+        <span>Películas</span>
+      </a>
+      <a mat-list-item routerLink="/create-movie" routerLinkActive="active-link">
+        <mat-icon matListIcon>add</mat-icon>
+        <span>Crear Película</span>
+      </a>
+      <a mat-list-item routerLink="/listpeliculas" routerLinkActive="active-link">
+        <mat-icon matListIcon>list</mat-icon>
+        <span>Listar Películas</span>
+      </a>
+      <a mat-list-item routerLink="/listcines" routerLinkActive="active-link">
+        <mat-icon matListIcon>location_city</mat-icon>
+        <span>Listar Cines</span>
+      </a>
+      <a mat-list-item routerLink="/listFunciones" routerLinkActive="active-link">
+        <mat-icon matListIcon>event</mat-icon>
+        <span>Listar Funciones</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 
+  <!-- Main content -->
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="main-toolbar">
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Gestor de Películas</span>
+      <span class="toolbar-title">Gestor de Películas</span>
     </mat-toolbar>
 
     <div class="content">

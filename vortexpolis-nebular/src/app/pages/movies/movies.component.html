@@ -13,6 +13,10 @@
         <mat-card-content>
           <p>{{ pelicula.descripcion }}</p>
         </mat-card-content>
+
+        <button mat-raised-button color="primary" (click)="seleccionarPelicula(pelicula)">
+          Seleccionar
+        </button>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

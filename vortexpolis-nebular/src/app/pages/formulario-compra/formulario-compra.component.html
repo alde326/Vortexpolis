@@ -1,0 +1,31 @@
+<div class="form-container">
+  <h2>Compra de Entradas</h2>
+
+  <form [formGroup]="compraForm" (ngSubmit)="guardarCompra()">
+
+    <mat-form-field class="full-width">
+      <mat-label>Cantidad de Entradas</mat-label>
+      <input matInput type="number" formControlName="cantidad" required min="1">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Método de Pago</mat-label>
+      <mat-select formControlName="metodoPagoId" required>
+        <mat-option *ngFor="let metodo of metodosPago" [value]="metodo.id">
+          {{ metodo.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>ID del Cliente</mat-label>
+      <input matInput type="number" formControlName="clienteId" required>
+    </mat-form-field>
+
+    <p><strong>Total:</strong> {{ calcularTotal() | currency:'COP' }}</p>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="compraForm.invalid">
+      Confirmar Compra
+    </button>
+  </form>
+</div>

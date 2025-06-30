@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { MoviesComponent } from './pages/movies/movies.component';
@@ -8,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateMovieComponent } from './pages/create-movie/create-movie.component';
 import { ListMoviesComponent } from './pages/list-movies/list-movies.component';
 import { FuncionesComponent } from './pages/funciones/funciones.component';
+import { SeleccionarFuncionComponent } from './pages/seleccionar-funcion/seleccionar-funcion-component';
+import { FormularioCompraComponent } from './pages/formulario-compra/formulario-compra.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -25,6 +28,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CinesComponent } from './pages/cines/cines.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+
 
 
 
@@ -38,15 +44,20 @@ import { MatTableModule } from '@angular/material/table';
     CreateMovieComponent,
     ListMoviesComponent,
     CinesComponent,
-    FuncionesComponent
+    FuncionesComponent,
+    SeleccionarFuncionComponent,
+    FormularioCompraComponent
   ],
   imports: [
    BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    CommonModule,
 
-    // 👇 Estos son los módulos de Angular Material necesarios
+    //Estos son los módulos de Angular Material necesarios
+    MatOptionModule,
+    MatSelectModule,
     MatInputModule,
     MatFormFieldModule,
     MatSnackBarModule,

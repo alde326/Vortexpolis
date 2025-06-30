@@ -1,19 +1,43 @@
-::ng-deep nb-sidebar.small-sidebar {
-  width: 60px !important;      /* Sidebar más delgado */
-  min-width: 60px !important;
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
-::ng-deep nb-sidebar.small-sidebar nb-menu .menu-item .title {
-  display: none;               /* Oculta el texto por defecto */
+.sidenav-container {
+  height: 100vh;
 }
 
-::ng-deep nb-sidebar.small-sidebar nb-menu .menu-item:hover .title {
-  display: inline;             /* Muestra el texto al pasar el mouse */
-  position: absolute;
-  left: 70px;
-  background-color: #1a2138;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  z-index: 10;
+.sidenav {
+  width: 220px;
+  height: 100%;
+  background-color: #2c3e50; /* Cambia el color del menú lateral */
+  color: white;
+
+  a.mat-list-item {
+    color: white;
+
+    &:hover {
+      background-color: #34495e; /* Color al pasar el mouse */
+    }
+
+    &.active-link {
+      background-color: #1abc9c; /* Color del enlace activo */
+      font-weight: bold;
+    }
+  }
+}
+
+.main-toolbar {
+  background-color: #00ffcc !important; /* Cambia el color de la barra superior */
+  color: white;
+
+  .toolbar-title {
+    margin-left: 10px;
+  }
+}
+
+.content {
+  padding: 20px;
+  flex: 1;
+  overflow: auto;
 }

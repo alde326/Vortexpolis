@@ -1,12 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
-@import 'themes';
-
-body {
-  font-family: 'Roboto', sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 0;
-  background-color: nb-theme(background-basic-color-1);
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.sidenav-container {
+  height: 100vh; /* Full viewport height */
+}
+
+.mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidenav {
+  width: 220px;
+  height: 100%; /* Full height of the container */
+  background: #f4f4f4;
+}
+
+.sidenav-header {
+  font-weight: bold;
+  text-align: center;
+}
+
+.main-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.toolbar-title {
+  margin-left: 10px;
+}
+
+a.mat-list-item {
+  transition: background-color 0.3s;
+}
+
+a.mat-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.active-link {
+  background-color: rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+.content {
+  padding: 20px;
+  flex: 1; /* So the content takes the remaining vertical space */
+  overflow: auto; /* Scroll if content overflows */
+}

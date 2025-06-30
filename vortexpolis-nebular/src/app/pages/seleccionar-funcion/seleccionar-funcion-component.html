@@ -1,0 +1,20 @@
+<div *ngIf="isLoading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!isLoading && funciones.length > 0" class="funciones-container">
+  <h2>Seleccione la función</h2>
+
+  <div *ngFor="let funcion of funciones" class="funcion-card" (click)="seleccionarFuncion(funcion)">
+    <mat-card class="card-hover">
+      <mat-card-content>
+        <p><strong>Fecha y Hora:</strong> {{ funcion.fechaHora | date:'fullDate' }} - {{ funcion.fechaHora | date:'shortTime' }}</p>
+        <p><strong>Sala:</strong> {{ funcion.salaId }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && funciones.length === 0">
+  <p>No hay funciones disponibles para esta película.</p>
+</div>
