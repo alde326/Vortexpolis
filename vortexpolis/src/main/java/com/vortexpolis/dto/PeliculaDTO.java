@@ -6,6 +6,7 @@ public class PeliculaDTO {
     private String titulo;
     private String descripcion;
     private String imagenUrl;
+    private boolean estado;
 
     // Getters y Setters
 
@@ -15,6 +16,14 @@ public class PeliculaDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public String getTitulo() {

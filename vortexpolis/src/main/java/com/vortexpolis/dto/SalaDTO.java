@@ -1,10 +1,13 @@
 package com.vortexpolis.dto;
 
+import com.vortexpolis.model.Funcion;
+
 public class SalaDTO {
 
     private Long id;
     private String nombre;
     private Integer capacidad;
+    private Funcion funcion;
 
     // Getters y Setters
 
@@ -14,6 +17,14 @@ public class SalaDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Funcion getFuncion() {
+        return funcion;
+    }
+
+    public void setFuncion(Funcion funcion) {
+        this.funcion = funcion;
     }
 
     public String getNombre() {

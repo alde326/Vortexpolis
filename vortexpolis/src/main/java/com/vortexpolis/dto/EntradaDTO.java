@@ -3,10 +3,12 @@ package com.vortexpolis.dto;
 public class EntradaDTO {
 
     private Long id;
-    private Long funcionId;
-    private Long compraId;
-    private Integer cantidad;
     private Double precioUnitario;
+    private String estado;
+
+    private Long compraId;
+    private Long peliculaId;
+    private Long funcionId;
 
     // Getters y Setters
 
@@ -18,12 +20,20 @@ public class EntradaDTO {
         this.id = id;
     }
 
-    public Long getFuncionId() {
-        return funcionId;
+    public Double getPrecioUnitario() {
+        return precioUnitario;
     }
 
-    public void setFuncionId(Long funcionId) {
-        this.funcionId = funcionId;
+    public void setPrecioUnitario(Double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Long getCompraId() {
@@ -34,19 +44,19 @@ public class EntradaDTO {
         this.compraId = compraId;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    public Long getPeliculaId() {
+        return peliculaId;
     }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
+    public void setPeliculaId(Long peliculaId) {
+        this.peliculaId = peliculaId;
     }
 
-    public Double getPrecioUnitario() {
-        return precioUnitario;
+    public Long getFuncionId() {
+        return funcionId;
     }
 
-    public void setPrecioUnitario(Double precioUnitario) {
-        this.precioUnitario = precioUnitario;
+    public void setFuncionId(Long funcionId) {
+        this.funcionId = funcionId;
     }
 }
