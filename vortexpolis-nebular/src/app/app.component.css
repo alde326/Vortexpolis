@@ -1,0 +1,19 @@
+::ng-deep nb-sidebar.small-sidebar {
+  width: 60px !important;      /* Sidebar más delgado */
+  min-width: 60px !important;
+}
+
+::ng-deep nb-sidebar.small-sidebar nb-menu .menu-item .title {
+  display: none;               /* Oculta el texto por defecto */
+}
+
+::ng-deep nb-sidebar.small-sidebar nb-menu .menu-item:hover .title {
+  display: inline;             /* Muestra el texto al pasar el mouse */
+  position: absolute;
+  left: 70px;
+  background-color: #1a2138;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 10;
+}

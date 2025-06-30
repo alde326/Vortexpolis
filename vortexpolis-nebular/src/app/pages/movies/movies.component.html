@@ -1,16 +1,24 @@
-<div *ngIf="peliculas.length === 0">
-  <p>No hay películas para mostrar.</p>
+<div *ngIf="isLoading" class="loading-container">
+  <mat-spinner></mat-spinner>
 </div>
 
-<div class="movies-container" *ngIf="peliculas.length > 0">
-  <nb-card *ngFor="let pelicula of peliculas" class="movie-card">
-    <nb-card-header>{{ pelicula.titulo }}</nb-card-header>
-    <nb-card-body>
-      <img [src]="pelicula.imagenUrl" alt="{{pelicula.titulo}}" class="movie-image">
-      <p>{{ pelicula.descripcion }}</p>
-    </nb-card-body>
-    <nb-card-footer>
-      <button nbButton status="primary">Ver película</button>
-    </nb-card-footer>
-  </nb-card>
+<div *ngIf="!isLoading && peliculas.length > 0" class="movies-grid">
+  <mat-grid-list cols="4" gutterSize="16px" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let pelicula of peliculas">
+      <mat-card class="movie-card">
+        <mat-card-header>
+          <mat-card-title>{{ pelicula.titulo }}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="pelicula.imagenUrl" alt="{{ pelicula.titulo }}">
+        <mat-card-content>
+          <p>{{ pelicula.descripcion }}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
+
+<div *ngIf="!isLoading && peliculas.length === 0">
+  <p>No hay películas disponibles.</p>
+</div>
+

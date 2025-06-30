@@ -6,8 +6,16 @@ import { AppComponent } from './app.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { NbSidebarModule, NbMenuModule, NbLayoutModule, NbThemeModule, NbButtonModule, NbCardModule } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+
 
 
 @NgModule({
@@ -16,16 +24,20 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     MoviesComponent
   ],
   imports: [
-    BrowserModule,
+   BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
-    NbEvaIconsModule,
-    NbCardModule,
-    NbButtonModule,
-    NbSidebarModule.forRoot(),  // 👉 Este habilita el sidebar
-    NbMenuModule.forRoot(),   
+
+    // 👇 Estos son los módulos de Angular Material necesarios
+    MatSidenavModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatGridListModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

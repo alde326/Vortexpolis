@@ -3,12 +3,28 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'vortexpolis-nebular';
-
   menuItems = [
-    { title: 'Películas', link: '/movies' }
+    {
+      title: 'Dashboard',
+      icon: 'home-outline',
+      link: '/dashboard',
+    },
+    {
+      title: 'Películas',
+      icon: 'film-outline',
+      link: '/movies',
+    },
+    {
+      title: 'Usuarios',
+      icon: 'people-outline',
+      link: '/users',
+    },
+    {
+      title: 'Configuración',
+      icon: 'settings-outline',
+      link: '/settings',
+    },
   ];
 }

@@ -1,12 +1,24 @@
-<nb-layout>
-  <nb-layout-header fixed>Vortexpolis</nb-layout-header>
+<mat-sidenav-container class="sidenav-container">
 
-  <nb-sidebar>
-    <nb-menu [items]="menuItems"></nb-menu>
-  </nb-sidebar>
+  <mat-sidenav #sidenav="matSidenav" mode="side" opened class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/movies" routerLinkActive="active-link">Películas</a>
+      <!-- Puedes agregar más rutas aquí -->
+    </mat-nav-list>
+  </mat-sidenav>
 
-  <nb-layout-column>
-    <router-outlet></router-outlet>
-  </nb-layout-column>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Gestor de Películas</span>
+    </mat-toolbar>
 
-</nb-layout>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

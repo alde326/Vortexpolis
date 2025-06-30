@@ -1,0 +1,8 @@
+// src/themes.scss
+
+@import '@nebular/theme/styles/theming';
+@import '@nebular/theme/styles/themes/cosmic';
+
+@include nb-install() {
+  // Puedes personalizar colores aquí
+};
