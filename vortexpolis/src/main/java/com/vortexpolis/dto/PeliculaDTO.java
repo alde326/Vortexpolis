@@ -1,4 +1,5 @@
 package com.vortexpolis.dto;
+import java.util.List;
 
 public class PeliculaDTO {
 
@@ -7,6 +8,8 @@ public class PeliculaDTO {
     private String descripcion;
     private String imagenUrl;
     private boolean estado;
+
+    private List<FuncionDTO> funciones;
 
     // Getters y Setters
 
@@ -48,5 +51,13 @@ public class PeliculaDTO {
 
     public void setImagenUrl(String imagenUrl) {
         this.imagenUrl = imagenUrl;
+    }
+
+    public List<FuncionDTO> getFunciones() {
+        return funciones;
+    }
+
+    public void setFunciones(List<FuncionDTO> funciones) {
+        this.funciones = funciones;
     }
 }

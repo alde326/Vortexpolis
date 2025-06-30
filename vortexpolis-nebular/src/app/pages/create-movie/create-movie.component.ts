@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { PeliculaService } from '../../services/pelicula.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-create-movie',
@@ -9,18 +10,34 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./create-movie.component.css']
 })
 export class CreateMovieComponent {
-  pelicula = { titulo: '', descripcion: '', imagenUrl: '' };
+  pelicula = { titulo: '', descripcion: '', imagenUrl: '', activa: true };
   selectedFile!: File;
+  movieId?: number;
+  esModoEdicion: boolean = false;
 
   constructor(
     private peliculaService: PeliculaService,
-    private router: Router,
-    private snackBar: MatSnackBar
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      if (idParam) {
+        this.esModoEdicion = true;
+        this.movieId = +idParam;
+        this.cargarPelicula(this.movieId);
+      } else {
+        this.esModoEdicion = false;
+      }
+    });
+  }
+
 
   crearPelicula() {
     const pelicula = {
@@ -39,4 +56,25 @@ export class CreateMovieComponent {
       }
     );
   }
+
+  cargarPelicula(id: number) {
+    this.peliculaService.getPeliculaById(id).subscribe(pelicula => {
+      this.pelicula = pelicula; // Asignas el modelo al formulario
+    });
+  }
+
+  onSubmit() {
+    if (this.esModoEdicion && this.movieId) {
+      this.peliculaService.actualizarPelicula(this.movieId, this.pelicula).subscribe(() => {
+        console.log('Película actualizada');
+        this.router.navigate(['/peliculas']);
+      });
+    } else {
+      this.peliculaService.crearPelicula(this.pelicula).subscribe(() => {
+        console.log('Película creada');
+        this.router.navigate(['/peliculas']);
+      });
+    }
+  }
+
 }

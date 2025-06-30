@@ -1,7 +1,7 @@
-<mat-toolbar color="primary">Crear Película</mat-toolbar>
+<mat-toolbar color="primary">{{ esModoEdicion ? 'Editar Película' : 'Crear Película' }}</mat-toolbar>
 
 <mat-card class="form-card">
-  <form (ngSubmit)="crearPelicula()">
+  <form (ngSubmit)="onSubmit()">
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Título</mat-label>

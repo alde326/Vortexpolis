@@ -13,8 +13,8 @@ export class PeliculaService {
   constructor(private http: HttpClient) { }
 
   // Obtener todas las películas
-  getPeliculas(): Observable<Pelicula[]> {
-    return this.http.get<Pelicula[]>(this.apiUrl);
+  getPeliculas() {
+    return this.http.get<any[]>('http://localhost:8080/api/peliculas');
   }
 
   // Obtener película por ID
@@ -33,8 +33,8 @@ export class PeliculaService {
     return this.http.put<Pelicula>(`${this.apiUrl}/${id}`, pelicula);
   }
 
-  // Eliminar película
-  eliminarPelicula(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  // Deshabilitar película
+  deshabilitarPelicula(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}/deshabilitar`, {}); // PUT con body vacío
   }
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateMovieComponent } from './pages/create-movie/create-movie.component';
+import { ListMoviesComponent } from './pages/list-movies/list-movies.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,11 +24,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     MoviesComponent,
-    CreateMovieComponent
+    CreateMovieComponent,
+    ListMoviesComponent,
   ],
   imports: [
    BrowserModule,

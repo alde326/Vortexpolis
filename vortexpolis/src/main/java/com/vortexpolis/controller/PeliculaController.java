@@ -50,13 +50,13 @@ public class PeliculaController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> inhabilitarPelicula(@PathVariable Long id) {
-        try {
-            peliculaService.inhabilitarPelicula(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/{id}/deshabilitar")
+    public ResponseEntity<Void> deshabilitarPelicula(@PathVariable Long id) {
+    try {
+        peliculaService.inhabilitarPelicula(id);
+        return ResponseEntity.noContent().build();
+    } catch (RuntimeException e) {
+        return ResponseEntity.notFound().build();
     }
+}
 }
