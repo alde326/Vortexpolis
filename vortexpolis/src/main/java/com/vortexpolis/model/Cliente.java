@@ -39,4 +39,12 @@ public class Cliente {
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Compra> compras = new ArrayList<>();
+
+     public String getEmail() {  // 👈 Este getter debe existir
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
