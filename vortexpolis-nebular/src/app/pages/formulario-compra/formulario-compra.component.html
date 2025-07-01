@@ -9,6 +9,11 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
+      <mat-label>Precio Unitario</mat-label>
+      <input matInput [value]="precioEntradaSeleccionado" disabled>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
       <mat-label>Método de Pago</mat-label>
       <mat-select formControlName="metodoPagoId" required>
         <mat-option *ngFor="let metodo of metodosPago" [value]="metodo.id">
@@ -22,7 +27,9 @@
       <input matInput type="number" formControlName="clienteId" required>
     </mat-form-field>
 
-    <p><strong>Total:</strong> {{ calcularTotal() | currency:'COP' }}</p>
+    <div class="total-compra">
+      <h3>Total: {{ totalCompra | currency:'USD' }}</h3>
+    </div>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="compraForm.invalid">
       Confirmar Compra

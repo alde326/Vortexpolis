@@ -9,6 +9,7 @@ public class FuncionDTO {
     private Long salaId;
     private LocalDateTime fechaHora;
     private Boolean estado;
+    private Double precioEntrada;
     // Getters y Setters
 
     public Long getId() {
@@ -49,5 +50,13 @@ public class FuncionDTO {
 
     public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
+    }
+
+    public Double getPrecioEntrada() {
+        return precioEntrada;
+    }
+
+    public void setPrecioEntrada(Double precioEntrada) {
+        this.precioEntrada = precioEntrada;
     }
 }

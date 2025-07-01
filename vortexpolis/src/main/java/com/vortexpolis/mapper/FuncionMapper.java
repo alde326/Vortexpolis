@@ -15,7 +15,8 @@ public interface FuncionMapper {
         @Mapping(source = "pelicula.id", target = "peliculaId"),
         @Mapping(source = "sala", target = "salaId", qualifiedByName = "mapSalaStringToId"),
         @Mapping(target = "fechaHora", expression = "java(mapFechaHora(funcion.getFecha(), funcion.getHora()))"),
-        @Mapping(source = "estado", target = "estado")
+        @Mapping(source = "estado", target = "estado"),
+        @Mapping(source = "precioEntrada", target = "precioEntrada")
     })
     FuncionDTO toDTO(Funcion funcion);
 
@@ -25,7 +26,8 @@ public interface FuncionMapper {
         @Mapping(target = "hora", expression = "java(mapHora(funcionDTO.getFechaHora()))"),
         @Mapping(source = "salaId", target = "sala", qualifiedByName = "mapSalaIdToString"),
         @Mapping(target = "cine", ignore = true),
-        @Mapping(target = "entradas", ignore = true)
+        @Mapping(target = "entradas", ignore = true),
+        @Mapping(source = "precioEntrada", target = "precioEntrada")
     })
     Funcion toEntity(FuncionDTO funcionDTO);
 
@@ -64,7 +66,6 @@ public interface FuncionMapper {
         return pelicula;
     }
 
-    // 🔥 Aquí estaban faltando las anotaciones @Named
     @Named("mapSalaIdToString")
     default String mapSalaIdToString(Long salaId) {
         return salaId != null ? String.valueOf(salaId) : null;

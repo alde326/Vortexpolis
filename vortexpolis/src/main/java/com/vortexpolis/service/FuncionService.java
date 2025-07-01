@@ -2,6 +2,7 @@ package com.vortexpolis.service;
 
 import com.vortexpolis.dto.FuncionDTO;
 import com.vortexpolis.mapper.FuncionMapper;
+import com.vortexpolis.model.Entrada;
 import com.vortexpolis.model.Funcion;
 import com.vortexpolis.repository.FuncionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,10 @@ public class FuncionService {
 
     public List<Funcion> listarFuncionesPorPelicula(Long peliculaId) {
         return funcionRepository.findByPeliculaIdAndEstadoTrue(peliculaId);
+    }
+
+    public Funcion obtenerPorId(Long id) {
+        return funcionRepository.findById(id).orElse(null);
     }
 }
 

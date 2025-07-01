@@ -15,35 +15,53 @@ export class FormularioCompraComponent implements OnInit {
   compraForm: FormGroup;
   funcionId!: number;
   metodosPago: any[] = [];
-  precioUnitario: number = 10; // Puedes traer esto desde el backend si quieres
+  precioEntradaSeleccionado: number = 0; // Precio que traeremos de la función
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
+    private funcionesService: FuncionesService,
     private metodoPagoService: MetodoPagoService,
     private comprasService: ComprasService
   ) {
     this.compraForm = this.fb.group({
       cantidad: [1, [Validators.required, Validators.min(1)]],
       metodoPagoId: ['', Validators.required],
-      clienteId: ['', Validators.required] // Simulando cliente logueado
+      clienteId: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.funcionId = Number(this.route.snapshot.paramMap.get('funcionId'));
+    this.cargarFuncion();
     this.cargarMetodosPago();
   }
 
-  cargarMetodosPago(): void {
-    this.metodoPagoService.listarMetodosPago().subscribe(data => {
-      this.metodosPago = data;
+  cargarFuncion(): void {
+    this.funcionesService.obtenerPorId(this.funcionId).subscribe({
+      next: (funcion: any) => {
+        this.precioEntradaSeleccionado = funcion.precioEntrada;
+      },
+      error: (err: any) => {
+        console.error('Error al cargar la función:', err);
+      }
     });
   }
 
-  calcularTotal(): number {
-    return this.precioUnitario * this.compraForm.value.cantidad;
+  cargarMetodosPago(): void {
+    this.metodoPagoService.listarMetodosPago().subscribe({
+      next: (data) => {
+        this.metodosPago = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar métodos de pago:', err);
+      }
+    });
+  }
+
+  get totalCompra(): number {
+    return this.precioEntradaSeleccionado * this.compraForm.value.cantidad;
   }
 
   guardarCompra(): void {
@@ -55,7 +73,7 @@ export class FormularioCompraComponent implements OnInit {
       funcionId: this.funcionId,
       cantidad: this.compraForm.value.cantidad
     };
-
+    console.log('Datos a enviar:', compraDTO);
     this.comprasService.registrarCompra(compraDTO).subscribe(() => {
       alert('Compra realizada con éxito');
       this.router.navigate(['/']);

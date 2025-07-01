@@ -10,6 +10,7 @@
       <mat-card-content>
         <p><strong>Fecha y Hora:</strong> {{ funcion.fechaHora | date:'fullDate' }} - {{ funcion.fechaHora | date:'shortTime' }}</p>
         <p><strong>Sala:</strong> {{ funcion.salaId }}</p>
+        <p><strong>Precio:</strong> {{ funcion.precioEntrada | currency:'COP':'symbol':'1.0-0' }}</p>
       </mat-card-content>
     </mat-card>
   </div>

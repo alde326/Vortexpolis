@@ -35,4 +35,8 @@ export class FuncionesService {
     funcion.estado = false;
     return this.actualizarFuncion(funcion);
   }
+
+  obtenerPorId(id: number) {
+    return this.http.get<any>(`http://localhost:8080/api/funciones/${id}`);
+  }
 }

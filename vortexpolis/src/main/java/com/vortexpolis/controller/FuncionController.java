@@ -1,7 +1,9 @@
 package com.vortexpolis.controller;
 
+import com.vortexpolis.dto.EntradaDTO;
 import com.vortexpolis.dto.FuncionDTO;
 import com.vortexpolis.mapper.FuncionMapper;
+import com.vortexpolis.model.Entrada;
 import com.vortexpolis.model.Funcion;
 import com.vortexpolis.service.FuncionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,16 @@ public class FuncionController {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(funcionMapper.toDTOList(funciones));
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FuncionDTO> obtenerPorId(@PathVariable Long id) {
+        Funcion funcion = funcionService.obtenerPorId(id);
+        if (funcion != null) {
+            return ResponseEntity.ok(funcionMapper.toDTO(funcion));
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

@@ -24,6 +24,8 @@ public class Funcion {
 
     private Boolean estado = true; 
 
+    private Double precioEntrada;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cine")
     private Cine cine;

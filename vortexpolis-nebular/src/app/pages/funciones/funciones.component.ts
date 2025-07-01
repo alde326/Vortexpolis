@@ -14,7 +14,7 @@ export class FuncionesComponent implements OnInit {
   funcionForm: FormGroup;
   editando: boolean = false;
 
-  displayedColumns: string[] = ['fechaHora', 'salaId', 'estado', 'acciones'];
+  displayedColumns: string[] = ['fechaHora', 'salaId', 'precio','estado', 'acciones'];
 
   constructor(private funcionesService: FuncionesService, private fb: FormBuilder) {
     this.funcionForm = this.fb.group({
@@ -23,6 +23,7 @@ export class FuncionesComponent implements OnInit {
       salaId: ['', Validators.required],
       peliculaId: ['', Validators.required],
       cineId: ['', Validators.required],
+      precioEntrada: [1000, [Validators.required, Validators.min(0)]], // Precio por defecto
       estado: [true]
     });
   }

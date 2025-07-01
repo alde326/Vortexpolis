@@ -1,6 +1,7 @@
 package com.vortexpolis.controller;
 
 import com.vortexpolis.dto.CompraDTO;
+import com.vortexpolis.dto.CompraRequestDTO;
 import com.vortexpolis.mapper.CompraMapper;
 import com.vortexpolis.model.Compra;
 import com.vortexpolis.service.CompraService;
@@ -24,13 +25,11 @@ public class CompraController {
 
     // Registrar compra (recibe y devuelve DTO)
     @PostMapping
-    public ResponseEntity<CompraDTO> registrarCompra(@Valid @RequestBody CompraDTO compraDTO) {
-        Compra compra = compraMapper.toEntity(compraDTO);
-        Compra nuevaCompra = compraService.registrarCompra(compra);
+    public ResponseEntity<CompraDTO> registrarCompra(@Valid @RequestBody CompraRequestDTO compraRequestDTO) {
+        Compra nuevaCompra = compraService.registrarCompra(compraRequestDTO);
         CompraDTO nuevaCompraDTO = compraMapper.toDTO(nuevaCompra);
         return ResponseEntity.ok(nuevaCompraDTO);
     }
-
     // Listar todas las compras (devuelve DTOs)
     @GetMapping
     public ResponseEntity<List<CompraDTO>> listarTodasLasCompras() {
