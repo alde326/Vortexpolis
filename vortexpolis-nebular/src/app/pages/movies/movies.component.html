@@ -3,8 +3,17 @@
 </div>
 
 <div *ngIf="!isLoading && peliculas.length > 0" class="movies-grid">
+
+  <!-- 🔍 Barra de búsqueda -->
+  <div class="search-bar">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar película</mat-label>
+      <input matInput type="text" placeholder="Ingrese el título" [(ngModel)]="filtro">
+    </mat-form-field>
+  </div>
+
   <mat-grid-list cols="4" gutterSize="16px" rowHeight="1:1">
-    <mat-grid-tile *ngFor="let pelicula of peliculas">
+    <mat-grid-tile *ngFor="let pelicula of peliculas | filterPeliculas:filtro">
       <mat-card class="movie-card">
         <mat-card-header>
           <mat-card-title>{{ pelicula.titulo }}</mat-card-title>
@@ -25,4 +34,3 @@
 <div *ngIf="!isLoading && peliculas.length === 0">
   <p>No hay películas disponibles.</p>
 </div>
-

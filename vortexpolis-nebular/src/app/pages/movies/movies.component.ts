@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PeliculaService } from '../../services/pelicula.service';
 import { Pelicula } from '../../models/pelicula.model';
-import { Router } from '@angular/router'; // 👈 Esto debes importar
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies',
@@ -12,10 +12,11 @@ export class MoviesComponent implements OnInit {
 
   peliculas: Pelicula[] = [];
   isLoading = true;
+  filtro: string = ''; // 👉 Filtro agregado
 
   constructor(
     private peliculaService: PeliculaService,
-    private router: Router // 👈 Lo inyectas aquí
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +34,6 @@ export class MoviesComponent implements OnInit {
   }
 
   seleccionarPelicula(pelicula: Pelicula): void {
-    // Aquí navegas a la ruta donde mostrarás las funciones disponibles para esa película
     this.router.navigate(['/comprar-funcion', pelicula.id]);
   }
 }
