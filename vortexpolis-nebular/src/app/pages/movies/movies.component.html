@@ -1,10 +1,4 @@
-<div *ngIf="isLoading" class="loading-container">
-  <mat-spinner></mat-spinner>
-</div>
-
-<div *ngIf="!isLoading && peliculas.length > 0" class="movies-grid">
-
-  <!-- 🔍 Barra de búsqueda -->
+<div class="movies-grid">
   <div class="search-bar">
     <mat-form-field appearance="outline">
       <mat-label>Buscar película</mat-label>
@@ -12,25 +6,18 @@
     </mat-form-field>
   </div>
 
-  <mat-grid-list cols="4" gutterSize="16px" rowHeight="1:1">
-    <mat-grid-tile *ngFor="let pelicula of peliculas | filterPeliculas:filtro">
-      <mat-card class="movie-card">
-        <mat-card-header>
-          <mat-card-title>{{ pelicula.titulo }}</mat-card-title>
-        </mat-card-header>
-        <img mat-card-image [src]="pelicula.imagenUrl" alt="{{ pelicula.titulo }}">
-        <mat-card-content>
-          <p>{{ pelicula.descripcion }}</p>
-        </mat-card-content>
-
-        <button mat-raised-button color="primary" (click)="seleccionarPelicula(pelicula)">
-          Seleccionar
-        </button>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
-
-<div *ngIf="!isLoading && peliculas.length === 0">
-  <p>No hay películas disponibles.</p>
+  <div class="movies-container">
+    <mat-card class="movie-card" *ngFor="let pelicula of peliculas | filterPeliculas:filtro">
+      <mat-card-header>
+        <mat-card-title>{{ pelicula.titulo }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="pelicula.imagenUrl" alt="{{ pelicula.titulo }}">
+      <mat-card-content>
+        <p>{{ pelicula.descripcion }}</p>
+      </mat-card-content>
+      <button mat-raised-button color="primary" (click)="seleccionarPelicula(pelicula)">
+        Seleccionar
+      </button>
+    </mat-card>
+  </div>
 </div>

@@ -1,9 +1,9 @@
 package com.vortexpolis.controller;
 
-import com.vortexpolis.dto.EntradaDTO;
+// import com.vortexpolis.dto.EntradaDTO;
 import com.vortexpolis.dto.FuncionDTO;
 import com.vortexpolis.mapper.FuncionMapper;
-import com.vortexpolis.model.Entrada;
+// import com.vortexpolis.model.Entrada;
 import com.vortexpolis.model.Funcion;
 import com.vortexpolis.service.FuncionService;
 import org.springframework.beans.factory.annotation.Autowired;

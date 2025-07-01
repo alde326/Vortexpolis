@@ -4,7 +4,9 @@ import com.vortexpolis.model.Pelicula;
 import com.vortexpolis.repository.PeliculaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +14,12 @@ import java.util.Optional;
 public class PeliculaService {
 
     private final PeliculaRepository peliculaRepository;
+    private final CloudinaryService cloudinaryService;
 
     @Autowired
-    public PeliculaService(PeliculaRepository peliculaRepository) {
+    public PeliculaService(PeliculaRepository peliculaRepository, CloudinaryService cloudinaryService) {
         this.peliculaRepository = peliculaRepository;
+        this.cloudinaryService = cloudinaryService;
     }
 
     // Listar todas las películas activas
@@ -23,9 +27,15 @@ public class PeliculaService {
         return peliculaRepository.findByEstadoTrue();
     }
 
-    // Crear una nueva película
-    public Pelicula crearPelicula(Pelicula pelicula) {
+    // Crear una nueva película con imagen
+    public Pelicula crearPelicula(Pelicula pelicula, MultipartFile imagen) throws IOException {
+        // Subir imagen a Cloudinary
+        String imageUrl = cloudinaryService.uploadImage(imagen);
+
+        // Asignar la URL de la imagen a la película
+        pelicula.setImagenUrl(imageUrl);
         pelicula.setEstado(true); // Las películas nuevas están activas por defecto
+
         return peliculaRepository.save(pelicula);
     }
 

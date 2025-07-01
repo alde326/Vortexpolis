@@ -3,5 +3,5 @@ export interface Pelicula {
   titulo: string;
   descripcion: string;
   imagenUrl: string;
-  activa: boolean;
+  estado: boolean;
 }

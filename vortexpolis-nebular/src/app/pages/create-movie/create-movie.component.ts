@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./create-movie.component.css']
 })
 export class CreateMovieComponent {
-  pelicula = { titulo: '', descripcion: '', imagenUrl: '', activa: true };
+  pelicula = { titulo: '', descripcion: '', imagenUrl: '', estado: true };
   selectedFile!: File;
   movieId?: number;
   esModoEdicion: boolean = false;
@@ -23,6 +23,7 @@ export class CreateMovieComponent {
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
+    console.log('Archivo seleccionado:', this.selectedFile);
   }
 
   ngOnInit(): void {
@@ -40,22 +41,29 @@ export class CreateMovieComponent {
 
 
   crearPelicula() {
-    const pelicula = {
-      titulo: this.pelicula.titulo,
-      descripcion: this.pelicula.descripcion
-      // Agrega otros campos si es necesario
-    };
+    const formData = new FormData();
 
-    this.peliculaService.crearPelicula(pelicula).subscribe(
+    const peliculaJson = JSON.stringify({
+      titulo: this.pelicula.titulo,
+      descripcion: this.pelicula.descripcion,
+      imagenUrl: this.pelicula.imagenUrl, // Puede ser cadena vacía ''
+      estado: this.pelicula.estado // ✅ Este es el campo correcto
+    });
+
+    formData.append('pelicula', peliculaJson);
+    formData.append('imagen', this.selectedFile);
+
+    this.peliculaService.crearPelicula(formData).subscribe(
       response => {
         console.log('Película creada:', response);
-        // Aquí puedes redirigir o mostrar mensaje de éxito
+        this.router.navigate(['/']);
       },
       error => {
         console.error('Error al crear película:', error);
       }
     );
   }
+
 
   cargarPelicula(id: number) {
     this.peliculaService.getPeliculaById(id).subscribe(pelicula => {
@@ -65,15 +73,13 @@ export class CreateMovieComponent {
 
   onSubmit() {
     if (this.esModoEdicion && this.movieId) {
+      // Aquí puedes adaptar si quieres actualizar con imagen después
       this.peliculaService.actualizarPelicula(this.movieId, this.pelicula).subscribe(() => {
         console.log('Película actualizada');
         this.router.navigate(['/peliculas']);
       });
     } else {
-      this.peliculaService.crearPelicula(this.pelicula).subscribe(() => {
-        console.log('Película creada');
-        this.router.navigate(['/peliculas']);
-      });
+      this.crearPelicula();
     }
   }
 

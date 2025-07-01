@@ -23,7 +23,7 @@ export class PeliculaService {
   }
 
   // Crear nueva película
-  crearPelicula(peliculaData: any) {
+  crearPelicula(peliculaData: FormData) {
     return this.http.post('http://localhost:8080/api/peliculas', peliculaData);
   }
 
