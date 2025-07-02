@@ -13,6 +13,8 @@ import { CinesComponent } from './cines/cines.component';
 import { FuncionesComponent } from './funciones/funciones.component';
 import { SeleccionarFuncionComponent } from './seleccionar-funcion/seleccionar-funcion-component';
 import { FormularioCompraComponent } from './formulario-compra/formulario-compra.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { FormularioCompraComponent } from './formulario-compra/formulario-compra
     CinesComponent,
     FuncionesComponent,
     SeleccionarFuncionComponent,
-    FormularioCompraComponent
+    FormularioCompraComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

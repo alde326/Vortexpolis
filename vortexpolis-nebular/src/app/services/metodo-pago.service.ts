@@ -11,6 +11,7 @@ export class MetodoPagoService {
   constructor(private http: HttpClient) { }
 
   listarMetodosPago() {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl, { withCredentials: true });
   }
+
 }

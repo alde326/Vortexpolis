@@ -21,7 +21,7 @@ public class ClienteService {
 
     public Cliente guardarCliente(Cliente cliente) {
         // Encriptar la contraseña antes de guardar
-        cliente.setContraseña(passwordEncoder.encode(cliente.getContraseña()));
+        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
         return clienteRepository.save(cliente);
     }
 
@@ -35,5 +35,9 @@ public class ClienteService {
 
     public Optional<Cliente> buscarPorEmail(String email) {
         return clienteRepository.findByEmail(email);
+    }
+
+    public boolean emailExistente(String email) {
+        return clienteRepository.findByEmail(email).isPresent();
     }
 }

@@ -1,0 +1,38 @@
+<h2>Registro de Cliente</h2>
+
+<form (ngSubmit)="registrar()" #registerForm="ngForm">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="cliente.nombre" name="nombre" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Apellido</mat-label>
+    <input matInput [(ngModel)]="cliente.apellido" name="apellido" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" [(ngModel)]="cliente.email" name="email" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Teléfono</mat-label>
+    <input matInput [(ngModel)]="cliente.telefono" name="telefono" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Contraseña</mat-label>
+    <input matInput type="password" [(ngModel)]="cliente.password" name="password" required>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Registrarse</button>
+</form>
+
+<div *ngIf="mensaje" style="margin-top: 10px; color: green;">
+  {{ mensaje }}
+</div>
+
+<div *ngIf="error" style="margin-top: 10px; color: red;">
+  {{ error }}
+</div>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.core.Authentication;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +29,8 @@ public class PeliculaController {
 
     // Listar todas las películas
     @GetMapping
-    public List<PeliculaDTO> listarPeliculas() {
+    public List<PeliculaDTO> listarPeliculas(Authentication authentication) {
+        System.out.println("📌 Usuario autenticado: " + (authentication != null ? authentication.getName() : "No autenticado"));
         List<Pelicula> peliculas = peliculaService.listarPeliculas();
         return peliculaMapper.toDTOList(peliculas);
     }

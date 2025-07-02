@@ -14,27 +14,23 @@ export class PeliculaService {
 
   // Obtener todas las películas
   getPeliculas() {
-    return this.http.get<any[]>('http://localhost:8080/api/peliculas');
+    return this.http.get<any[]>('http://localhost:8080/api/peliculas', { withCredentials: true });
   }
 
-  // Obtener película por ID
   getPeliculaById(id: number): Observable<Pelicula> {
-    return this.http.get<Pelicula>(`${this.apiUrl}/${id}`);
+    return this.http.get<Pelicula>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 
-  // Crear nueva película
   crearPelicula(peliculaData: FormData) {
-    return this.http.post('http://localhost:8080/api/peliculas', peliculaData);
+    return this.http.post('http://localhost:8080/api/peliculas', peliculaData, { withCredentials: true });
   }
 
-
-  // Actualizar película
   actualizarPelicula(id: number, pelicula: Pelicula): Observable<Pelicula> {
-    return this.http.put<Pelicula>(`${this.apiUrl}/${id}`, pelicula);
+    return this.http.put<Pelicula>(`${this.apiUrl}/${id}`, pelicula, { withCredentials: true });
   }
 
-  // Deshabilitar película
   deshabilitarPelicula(id: number): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}/deshabilitar`, {}); // PUT con body vacío
+    return this.http.put<void>(`${this.apiUrl}/${id}/deshabilitar`, {}, { withCredentials: true });
   }
+
 }

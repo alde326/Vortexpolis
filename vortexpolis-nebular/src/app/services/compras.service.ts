@@ -11,6 +11,7 @@ export class ComprasService {
   constructor(private http: HttpClient) { }
 
   registrarCompra(compraDTO: any) {
-    return this.http.post<any>(this.apiUrl, compraDTO);
+    return this.http.post<any>(this.apiUrl, compraDTO, { withCredentials: true });
   }
+
 }

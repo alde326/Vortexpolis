@@ -33,18 +33,28 @@ public class Cliente {
     private String apellido;
 
     @NotBlank(message = "La contraseña es obligatoria")
-    private String contraseña;
+    private String password;
 
     private Boolean estado = true;
+
+    private String rol = "CLIENTE";
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Compra> compras = new ArrayList<>();
 
-     public String getEmail() {  // 👈 Este getter debe existir
+     public String getEmail() {  
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isEstado() {
+        return estado != null && estado;
+    }
+    
+    public String getRoles() {
+        return rol;
     }
 }

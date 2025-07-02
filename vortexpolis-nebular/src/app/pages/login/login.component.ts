@@ -1,0 +1,54 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html'
+})
+export class LoginComponent {
+
+  email = '';
+  password = '';
+  errorMessage = '';
+
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    const rol = localStorage.getItem('rol');
+    if (rol) {
+      this.router.navigate(['/movies']);
+    }
+  }
+
+
+  login() {
+    console.log('📨 Intentando login con: ', this.email, this.password);
+
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+        console.log('✅ Login exitoso, consultando el rol...');
+        this.authService.getUserInfo().subscribe({
+          next: (userInfo) => {
+            console.log('ℹ️ Rol recibido: ', userInfo);
+            const rol = userInfo[0]?.authority;
+            this.authService.guardarRol(rol);
+
+            if (rol === 'ADMIN') {
+              this.router.navigate(['/listpeliculas']);
+            } else if (rol === 'CLIENTE') {
+              this.router.navigate(['/movies']);
+            } else {
+              this.errorMessage = 'Rol desconocido';
+            }
+          }
+        });
+      },
+      error: (err) => {
+        console.error('❌ Error en login: ', err);
+        this.errorMessage = 'Credenciales incorrectas';
+      }
+    });
+  }
+
+}

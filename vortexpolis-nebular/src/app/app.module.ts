@@ -12,6 +12,8 @@ import { ListMoviesComponent } from './pages/list-movies/list-movies.component';
 import { FuncionesComponent } from './pages/funciones/funciones.component';
 import { SeleccionarFuncionComponent } from './pages/seleccionar-funcion/seleccionar-funcion-component';
 import { FormularioCompraComponent } from './pages/formulario-compra/formulario-compra.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -48,7 +50,9 @@ import { MatOptionModule } from '@angular/material/core';
     FuncionesComponent,
     SeleccionarFuncionComponent,
     FormularioCompraComponent,
-    FilterPeliculasPipe 
+    FilterPeliculasPipe,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
    BrowserModule,
