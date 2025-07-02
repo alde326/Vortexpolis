@@ -8,7 +8,13 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
 
+  rol: string | null = null;
+
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.rol = localStorage.getItem('rol');
+  }
 
   logout() {
     this.authService.logout().subscribe({
@@ -21,17 +27,5 @@ export class AppComponent {
         console.error('❌ Error al cerrar sesión', err);
       }
     });
-  }
-
-  isAdmin(): boolean {
-    return this.authService.getRol() === 'ROLE_ADMIN';
-  }
-
-  isCliente(): boolean {
-    return this.authService.getRol() === 'ROLE_CLIENTE';
-  }
-
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
   }
 }

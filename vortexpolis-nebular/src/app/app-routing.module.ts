@@ -16,7 +16,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { ClienteGuard } from './guards/cliente.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, // ✅ Esta es la que debe quedar
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 

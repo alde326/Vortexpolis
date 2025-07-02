@@ -7,41 +7,35 @@
     </mat-toolbar>
     <mat-nav-list>
 
-      <!-- Visible para todos los logueados -->
-      <a mat-list-item routerLink="/movies" routerLinkActive="active-link" *ngIf="isLoggedIn()">
-        <mat-icon matListIcon>movie</mat-icon>
-        <span>Películas</span>
-      </a>
-
-      <!-- Solo para ADMIN -->
-      <a *ngIf="isAdmin()" mat-list-item routerLink="/create-movie" routerLinkActive="active-link">
+      <!-- Solo visible para ADMIN -->
+      <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/create-movie" routerLinkActive="active-link">
         <mat-icon matListIcon>add</mat-icon>
         <span>Crear Película</span>
       </a>
 
-      <a *ngIf="isAdmin()" mat-list-item routerLink="/listpeliculas" routerLinkActive="active-link">
+      <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listpeliculas" routerLinkActive="active-link">
         <mat-icon matListIcon>list</mat-icon>
         <span>Listar Películas</span>
       </a>
 
-      <a *ngIf="isAdmin()" mat-list-item routerLink="/listcines" routerLinkActive="active-link">
+      <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listcines" routerLinkActive="active-link">
         <mat-icon matListIcon>location_city</mat-icon>
         <span>Listar Cines</span>
       </a>
 
-      <a *ngIf="isAdmin()" mat-list-item routerLink="/listFunciones" routerLinkActive="active-link">
+      <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listFunciones" routerLinkActive="active-link">
         <mat-icon matListIcon>event</mat-icon>
         <span>Listar Funciones</span>
       </a>
 
-      <!-- Solo para CLIENTE -->
-      <a *ngIf="isCliente()" mat-list-item routerLink="/comprar-funcion/1" routerLinkActive="active-link">
-        <mat-icon matListIcon>shopping_cart</mat-icon>
-        <span>Comprar Función</span>
+      <a mat-list-item routerLink="/movies" routerLinkActive="active-link">
+        <mat-icon matListIcon>movie</mat-icon>
+        <span>Películas</span>
       </a>
 
+
       <!-- Botón de logout visible solo si está logueado -->
-      <button *ngIf="isLoggedIn()" mat-button color="warn" (click)="logout()">
+      <button *ngIf="rol" mat-button color="warn" (click)="logout()">
         <mat-icon>logout</mat-icon>
         Cerrar sesión
       </button>

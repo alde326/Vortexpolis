@@ -1,21 +1,24 @@
-// src/app/guards/admin.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
   canActivate(): boolean {
-    if (this.authService.getRol() === 'ROLE_ADMIN') {
-      return true;
-    } else {
-      this.router.navigate(['/movies']); // o redirige donde quieras
+    const rol = (localStorage.getItem('rol') || '').trim();
+    console.log('🛡️ AdminGuard activado. Rol encontrado: ', `"${rol}"`);
+
+    if (rol !== 'ADMIN') {
+      console.log('🚫 Acceso denegado por AdminGuard. Redirigiendo...');
+      this.router.navigate(['/login']);
       return false;
     }
+
+    console.log('✅ Acceso permitido por AdminGuard.');
+    return true;
   }
 }

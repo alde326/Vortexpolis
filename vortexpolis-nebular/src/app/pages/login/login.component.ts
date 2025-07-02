@@ -21,7 +21,6 @@ export class LoginComponent {
     }
   }
 
-
   login() {
     console.log('📨 Intentando login con: ', this.email, this.password);
 
@@ -33,11 +32,14 @@ export class LoginComponent {
             console.log('ℹ️ Rol recibido: ', userInfo);
             const rol = userInfo[0]?.authority;
             this.authService.guardarRol(rol);
+            console.log('Rol guardado:', rol);
 
             if (rol === 'ADMIN') {
-              this.router.navigate(['/listpeliculas']);
+              alert('Bienvenido administrador');
+              window.location.href = '/'; // 🔥 Forzamos recarga completa
             } else if (rol === 'CLIENTE') {
-              this.router.navigate(['/movies']);
+              alert('Bienvenido cliente');
+              window.location.href = '/'; // 🔥 Forzamos recarga completa
             } else {
               this.errorMessage = 'Rol desconocido';
             }
@@ -50,5 +52,4 @@ export class LoginComponent {
       }
     });
   }
-
 }
