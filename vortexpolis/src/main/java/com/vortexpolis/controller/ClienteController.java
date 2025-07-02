@@ -3,7 +3,9 @@ package com.vortexpolis.controller;
 import com.vortexpolis.dto.ClienteDTO;
 import com.vortexpolis.mapper.ClienteMapper;
 import com.vortexpolis.model.Cliente;
+import com.vortexpolis.model.Compra;
 import com.vortexpolis.service.ClienteService;
+import com.vortexpolis.service.CompraService;
 
 import jakarta.validation.Valid;
 
@@ -24,6 +26,9 @@ public class ClienteController {
     @Autowired
     private ClienteMapper clienteMapper;
 
+    @Autowired
+    private CompraService compraService;
+
     // Registrar cliente (recibe y devuelve DTO)
     @PostMapping
     public ResponseEntity<ClienteDTO> registrarCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
@@ -41,11 +46,36 @@ public class ClienteController {
         return ResponseEntity.ok(clientesDTO);
     }
 
+    // Endpoint para listar clientes activos
+    @GetMapping("/activos")
+    public ResponseEntity<List<ClienteDTO>> obtenerClientesActivos() {
+        List<Cliente> clientesActivos = clienteService.obtenerClientesActivos();
+        List<ClienteDTO> clientesDTO = clienteMapper.toDTOList(clientesActivos);
+        return ResponseEntity.ok(clientesDTO);
+    }
+
     // Consultar cliente por ID (devuelve DTO)
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDTO> obtenerClientePorId(@PathVariable Long id) {
         return clienteService.buscarPorId(id)
                 .map(cliente -> ResponseEntity.ok(clienteMapper.toDTO(cliente)))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/inhabilitar")
+    public ResponseEntity<?> inhabilitarCliente(@PathVariable Long id) {
+        try {
+            clienteService.inhabilitarCliente(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado");
+        }
+    }
+
+    
+    @GetMapping("/{id}/compras")
+    public ResponseEntity<?> obtenerComprasPorCliente(@PathVariable Long id) {
+        List<Compra> compras = compraService.consultarComprasPorCliente(id);
+        return ResponseEntity.ok(compras);
     }
 }

@@ -14,6 +14,7 @@ import { SeleccionarFuncionComponent } from './pages/seleccionar-funcion/selecci
 import { FormularioCompraComponent } from './pages/formulario-compra/formulario-compra.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ClientesComponent } from './pages/clientes/clientes.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -33,6 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { ComprasClienteComponent } from './pages/compras-cliente/compras-cliente.component';
+
 
 
 
@@ -53,6 +56,8 @@ import { MatOptionModule } from '@angular/material/core';
     FilterPeliculasPipe,
     LoginComponent,
     RegisterComponent,
+    ClientesComponent,
+    ComprasClienteComponent,
   ],
   imports: [
    BrowserModule,

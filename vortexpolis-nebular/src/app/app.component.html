@@ -33,6 +33,11 @@
         <span>Películas</span>
       </a>
 
+      <a mat-list-item routerLink="/clientes" routerLinkActive="active-link">
+        <mat-icon matListIcon>movie</mat-icon>
+        <span>Clientes</span>
+      </a>
+
 
       <!-- Botón de logout visible solo si está logueado -->
       <button *ngIf="rol" mat-button color="warn" (click)="logout()">

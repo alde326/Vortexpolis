@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { MetodoPagoService } from 'src/app/services/metodo-pago.service';
 import { ComprasService } from 'src/app/services/compras.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-formulario-compra',
@@ -15,7 +16,8 @@ export class FormularioCompraComponent implements OnInit {
   compraForm: FormGroup;
   funcionId!: number;
   metodosPago: any[] = [];
-  precioEntradaSeleccionado: number = 0; // Precio que traeremos de la función
+  precioEntradaSeleccionado: number = 0;
+  clienteId!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,12 +25,12 @@ export class FormularioCompraComponent implements OnInit {
     private router: Router,
     private funcionesService: FuncionesService,
     private metodoPagoService: MetodoPagoService,
-    private comprasService: ComprasService
+    private comprasService: ComprasService,
+    private authService: AuthService
   ) {
     this.compraForm = this.fb.group({
       cantidad: [1, [Validators.required, Validators.min(1)]],
-      metodoPagoId: ['', Validators.required],
-      clienteId: ['', Validators.required]
+      metodoPagoId: ['', Validators.required]
     });
   }
 
@@ -36,6 +38,7 @@ export class FormularioCompraComponent implements OnInit {
     this.funcionId = Number(this.route.snapshot.paramMap.get('funcionId'));
     this.cargarFuncion();
     this.cargarMetodosPago();
+    this.obtenerClienteId();
   }
 
   cargarFuncion(): void {
@@ -60,6 +63,18 @@ export class FormularioCompraComponent implements OnInit {
     });
   }
 
+  obtenerClienteId(): void {
+    this.authService.getUserId().subscribe({
+      next: (id: number) => {
+        console.log('🆔 ID del cliente:', id);
+        this.clienteId = id;
+      },
+      error: (err) => {
+        console.error('Error al obtener el ID del cliente:', err);
+      }
+    });
+  }
+
   get totalCompra(): number {
     return this.precioEntradaSeleccionado * this.compraForm.value.cantidad;
   }
@@ -68,7 +83,7 @@ export class FormularioCompraComponent implements OnInit {
     if (this.compraForm.invalid) return;
 
     const compraDTO = {
-      clienteId: this.compraForm.value.clienteId,
+      clienteId: this.clienteId,
       metodoPagoId: this.compraForm.value.metodoPagoId,
       funcionId: this.funcionId,
       cantidad: this.compraForm.value.cantidad

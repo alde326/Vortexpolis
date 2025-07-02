@@ -46,4 +46,8 @@ export class AuthService {
       responseType: 'text'
     });
   }
+
+  getUserId() {
+    return this.http.get<number>('http://localhost:8080/api/public/auth/id', { withCredentials: true });
+  }
 }

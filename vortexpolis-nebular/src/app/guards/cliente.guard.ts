@@ -14,7 +14,7 @@ export class ClienteGuard implements CanActivate {
     const rol = this.authService.getRol();
     console.log('🛡️ ClienteGuard activado. Rol encontrado: ', rol);
 
-    if (rol === 'ROLE_CLIENTE') {
+    if (rol === 'CLIENTE') {
       console.log('✅ Acceso permitido por ClienteGuard');
       return true;
     } else {

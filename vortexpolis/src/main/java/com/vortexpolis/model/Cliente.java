@@ -53,6 +53,10 @@ public class Cliente {
     public boolean isEstado() {
         return estado != null && estado;
     }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
     
     public String getRoles() {
         return rol;

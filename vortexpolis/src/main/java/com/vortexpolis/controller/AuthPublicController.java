@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.Optional;
 
 
 @RestController
@@ -46,6 +47,23 @@ public class AuthPublicController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No autenticado");
     }
+
+    @GetMapping("/auth/id")
+    public ResponseEntity<?> getUserId(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName();
+            Optional<Cliente> optionalCliente = clienteService.buscarPorEmail(email);
+
+            if (optionalCliente.isPresent()) {
+                Cliente cliente = optionalCliente.get();
+                return ResponseEntity.ok(cliente.getId());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No autenticado");
+    }
+
 
 
 }

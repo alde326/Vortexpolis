@@ -40,4 +40,19 @@ public class ClienteService {
     public boolean emailExistente(String email) {
         return clienteRepository.findByEmail(email).isPresent();
     }
+
+    // ClienteService.java
+    public void inhabilitarCliente(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+        cliente.setEstado(false);
+        clienteRepository.save(cliente);
+    }
+
+
+    public List<Cliente> obtenerClientesActivos() {
+        return clienteRepository.findByEstadoTrue();
+    }
+
 }

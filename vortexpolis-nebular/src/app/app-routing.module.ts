@@ -10,7 +10,8 @@ import { SeleccionarFuncionComponent } from './pages/seleccionar-funcion/selecci
 import { FormularioCompraComponent } from './pages/formulario-compra/formulario-compra.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-
+import { ClientesComponent } from './pages/clientes/clientes.component';
+import { ComprasClienteComponent } from './pages/compras-cliente/compras-cliente.component';
 
 import { AdminGuard } from './guards/admin.guard';
 import { ClienteGuard } from './guards/cliente.guard';
@@ -34,6 +35,10 @@ const routes: Routes = [
   // 🔒 Solo CLIENTE puede comprar entradas
   { path: 'comprar-funcion/:peliculaId', component: SeleccionarFuncionComponent, canActivate: [ClienteGuard] },
   { path: 'comprar-entradas/:funcionId', component: FormularioCompraComponent, canActivate: [ClienteGuard] },
+
+  { path: 'clientes', component: ClientesComponent, canActivate: [AdminGuard] },
+  { path: 'compras-cliente/:id', component: ComprasClienteComponent, canActivate: [AdminGuard] },
+
 
   { path: '**', redirectTo: 'login' } // 🔥 Esta es la ruta catch-all
 ];

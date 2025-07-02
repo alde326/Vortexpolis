@@ -30,16 +30,16 @@ export class LoginComponent {
         this.authService.getUserInfo().subscribe({
           next: (userInfo) => {
             console.log('ℹ️ Rol recibido: ', userInfo);
-            const rol = userInfo[0]?.authority;
+            const rol = userInfo[0]?.authority; // Ejemplo: 'ROLE_ADMIN'
             this.authService.guardarRol(rol);
             console.log('Rol guardado:', rol);
 
-            if (rol === 'ADMIN') {
+            if (rol === 'ROLE_ADMIN') {  // 🔥 Corrección aquí
               alert('Bienvenido administrador');
-              window.location.href = '/'; // 🔥 Forzamos recarga completa
-            } else if (rol === 'CLIENTE') {
+              window.location.href = '/'; // 🔄 Forzamos recarga elegante
+            } else if (rol === 'ROLE_CLIENTE') {  // 🔥 Corrección aquí
               alert('Bienvenido cliente');
-              window.location.href = '/'; // 🔥 Forzamos recarga completa
+              window.location.href = '/'; // 🔄 Forzamos recarga elegante
             } else {
               this.errorMessage = 'Rol desconocido';
             }
