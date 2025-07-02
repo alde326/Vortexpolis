@@ -31,16 +31,18 @@
           <span>Listar Funciones</span>
         </a>
 
+        <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/clientes" routerLinkActive="active-link">
+          <mat-icon matListIcon>people</mat-icon>
+          <span>Clientes</span>
+        </a>
+
+
         <!-- Opciones para cualquier rol logueado -->
         <a mat-list-item routerLink="/movies" routerLinkActive="active-link">
           <mat-icon matListIcon>movie</mat-icon>
           <span>Películas</span>
         </a>
 
-        <a mat-list-item routerLink="/clientes" routerLinkActive="active-link">
-          <mat-icon matListIcon>people</mat-icon>
-          <span>Clientes</span>
-        </a>
 
         <!-- Cerrar Sesión -->
         <button mat-button color="warn" (click)="logout()">

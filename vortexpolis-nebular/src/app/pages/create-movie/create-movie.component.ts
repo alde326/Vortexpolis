@@ -73,14 +73,35 @@ export class CreateMovieComponent {
 
   onSubmit() {
     if (this.esModoEdicion && this.movieId) {
-      // Aquí puedes adaptar si quieres actualizar con imagen después
-      this.peliculaService.actualizarPelicula(this.movieId, this.pelicula).subscribe(() => {
-        console.log('Película actualizada');
-        this.router.navigate(['/peliculas']);
-      });
+      if (this.selectedFile) {
+        // Si seleccionaste una nueva imagen
+        const formData = new FormData();
+
+        const peliculaJson = JSON.stringify({
+          titulo: this.pelicula.titulo,
+          descripcion: this.pelicula.descripcion,
+          imagenUrl: this.pelicula.imagenUrl, // Puedes enviar esto vacío, porque el backend puede actualizar la URL
+          estado: this.pelicula.estado
+        });
+
+        formData.append('pelicula', peliculaJson);
+        formData.append('imagen', this.selectedFile);
+
+        this.peliculaService.actualizarPeliculaConImagen(this.movieId, formData).subscribe(() => {
+          console.log('Película actualizada con nueva imagen');
+          this.router.navigate(['/peliculas']);
+        });
+      } else {
+        // Si no seleccionaste imagen, solo actualizas los campos de texto
+        this.peliculaService.actualizarPelicula(this.movieId, this.pelicula).subscribe(() => {
+          console.log('Película actualizada sin cambiar la imagen');
+          this.router.navigate(['/peliculas']);
+        });
+      }
     } else {
       this.crearPelicula();
     }
   }
+
 
 }

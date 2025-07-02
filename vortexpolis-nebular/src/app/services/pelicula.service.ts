@@ -33,4 +33,8 @@ export class PeliculaService {
     return this.http.put<void>(`${this.apiUrl}/${id}/deshabilitar`, {}, { withCredentials: true });
   }
 
+  actualizarPeliculaConImagen(id: number, formData: FormData) {
+    return this.http.put(`${this.apiUrl}/${id}/con-imagen`, formData, { withCredentials: true });
+  }
+
 }

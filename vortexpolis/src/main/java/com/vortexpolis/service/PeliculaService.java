@@ -69,4 +69,21 @@ public class PeliculaService {
         peliculaExistente.setEstado(false);
         peliculaRepository.save(peliculaExistente);
     }
+
+    // Actualizar película con nueva imagen
+    public Pelicula actualizarPeliculaConImagen(Long id, Pelicula peliculaActualizada, MultipartFile imagen) throws IOException {
+        Pelicula peliculaExistente = peliculaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Película no encontrada con ID: " + id));
+
+        // Actualizar campos de texto
+        peliculaExistente.setTitulo(peliculaActualizada.getTitulo());
+        peliculaExistente.setDescripcion(peliculaActualizada.getDescripcion());
+        peliculaExistente.setEstado(peliculaActualizada.getEstado());
+
+        // Subir la nueva imagen a Cloudinary
+        String nuevaImagenUrl = cloudinaryService.uploadImage(imagen);
+        peliculaExistente.setImagenUrl(nuevaImagenUrl);
+
+        return peliculaRepository.save(peliculaExistente);
+    }
 }

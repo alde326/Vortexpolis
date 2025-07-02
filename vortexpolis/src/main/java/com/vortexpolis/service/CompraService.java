@@ -94,7 +94,7 @@ public class CompraService {
         // Enviar correo de confirmación con HTML
         String destinatario = cliente.getEmail();
         String asunto = "Confirmación de compra - Cine Vortex";
-        String mensaje = generarContenidoCorreo(compra, compraRequestDTO.getCantidad(), funcion.getPelicula().getTitulo());
+        String mensaje = generarContenidoCorreo(compra, compraRequestDTO.getCantidad(), funcion);
 
         emailService.enviarCorreoConfirmacion(destinatario, asunto, mensaje);
 
@@ -111,8 +111,8 @@ public class CompraService {
         return compraRepository.findAll();
     }
 
-    // Método para generar el contenido HTML
-    private String generarContenidoCorreo(Compra compra, int cantidadEntradas, String tituloPelicula) {
+    // Método para generar el contenido HTML con detalles de la función
+    private String generarContenidoCorreo(Compra compra, int cantidadEntradas, Funcion funcion) {
         return """
             <html>
             <head>
@@ -139,7 +139,7 @@ public class CompraService {
                             <th>Cantidad</th>
                             <th>Total</th>
                             <th>Estado</th>
-                            <th>Fecha</th>
+                            <th>Fecha de Compra</th>
                         </tr>
                         <tr>
                             <td>%d</td>
@@ -148,6 +148,22 @@ public class CompraService {
                             <td>$%.2f</td>
                             <td>%s</td>
                             <td>%s</td>
+                        </tr>
+                    </table>
+
+                    <h3>Detalles de la Función:</h3>
+                    <table>
+                        <tr>
+                            <th>Película</th>
+                            <th>Sala</th>
+                            <th>Fecha y Hora</th>
+                            <th>Precio Unitario</th>
+                        </tr>
+                        <tr>
+                            <td>%s</td>
+                            <td>%s</td>
+                            <td>%s</td>
+                            <td>$%.2f</td>
                         </tr>
                     </table>
 
@@ -161,11 +177,15 @@ public class CompraService {
             """.formatted(
                 compra.getCliente().getNombre(),
                 compra.getId(),
-                tituloPelicula,
+                funcion.getPelicula().getTitulo(),
                 cantidadEntradas,
                 compra.getTotal(),
                 compra.getEstado(),
-                compra.getFecha().toString()
+                compra.getFecha().toString(),
+                funcion.getPelicula().getTitulo(),
+                funcion.getSala(),
+                funcion.getFechaHora().toString(), // Requiere el método getFechaHora en tu entidad
+                funcion.getPrecioEntrada()
             );
     }
 }

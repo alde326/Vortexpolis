@@ -34,10 +34,10 @@ export class LoginComponent {
             this.authService.guardarRol(rol);
             console.log('Rol guardado:', rol);
 
-            if (rol === 'ROLE_ADMIN') {  // 🔥 Corrección aquí
+            if (rol === 'ADMIN') {  // 🔥 Corrección aquí
               alert('Bienvenido administrador');
               window.location.href = '/'; // 🔄 Forzamos recarga elegante
-            } else if (rol === 'ROLE_CLIENTE') {  // 🔥 Corrección aquí
+            } else if (rol === 'CLIENTE') {  // 🔥 Corrección aquí
               alert('Bienvenido cliente');
               window.location.href = '/'; // 🔄 Forzamos recarga elegante
             } else {

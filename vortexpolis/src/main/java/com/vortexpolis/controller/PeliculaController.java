@@ -92,4 +92,30 @@ public class PeliculaController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // Actualizar película CON imagen
+    @PutMapping("/{id}/con-imagen")
+    public ResponseEntity<PeliculaDTO> actualizarPeliculaConImagen(
+            @PathVariable Long id,
+            @RequestPart("pelicula") String peliculaJson,
+            @RequestPart("imagen") MultipartFile imagen) {
+
+        try {
+            System.out.println("JSON recibido para actualizar: " + peliculaJson);
+            System.out.println("Archivo recibido: " + imagen.getOriginalFilename());
+
+            PeliculaDTO peliculaDTO = objectMapper.readValue(peliculaJson, PeliculaDTO.class);
+            Pelicula pelicula = peliculaMapper.toEntity(peliculaDTO);
+
+            Pelicula peliculaActualizada = peliculaService.actualizarPeliculaConImagen(id, pelicula, imagen);
+
+            return ResponseEntity.ok(peliculaMapper.toDTO(peliculaActualizada));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
+    }
 }

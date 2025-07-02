@@ -1,6 +1,7 @@
 package com.vortexpolis.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -36,5 +37,9 @@ public class Funcion {
 
     @OneToMany(mappedBy = "funcion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Entrada> entradas;
+
+    public LocalDateTime getFechaHora() {
+        return LocalDateTime.of(this.fecha, this.hora);
+    }
 
 }
