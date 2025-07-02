@@ -7,43 +7,56 @@
     </mat-toolbar>
     <mat-nav-list>
 
-      <!-- Solo visible para ADMIN -->
-      <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/create-movie" routerLinkActive="active-link">
-        <mat-icon matListIcon>add</mat-icon>
-        <span>Crear Película</span>
-      </a>
+      <!-- Opciones solo visibles si está logueado -->
+      <ng-container *ngIf="rol; else loginSection">
 
-      <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listpeliculas" routerLinkActive="active-link">
-        <mat-icon matListIcon>list</mat-icon>
-        <span>Listar Películas</span>
-      </a>
+        <!-- Opciones solo para ADMIN -->
+        <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/create-movie" routerLinkActive="active-link">
+          <mat-icon matListIcon>add</mat-icon>
+          <span>Crear Película</span>
+        </a>
 
-      <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listcines" routerLinkActive="active-link">
-        <mat-icon matListIcon>location_city</mat-icon>
-        <span>Listar Cines</span>
-      </a>
+        <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listpeliculas" routerLinkActive="active-link">
+          <mat-icon matListIcon>list</mat-icon>
+          <span>Listar Películas</span>
+        </a>
 
-      <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listFunciones" routerLinkActive="active-link">
-        <mat-icon matListIcon>event</mat-icon>
-        <span>Listar Funciones</span>
-      </a>
+        <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listcines" routerLinkActive="active-link">
+          <mat-icon matListIcon>location_city</mat-icon>
+          <span>Listar Cines</span>
+        </a>
 
-      <a mat-list-item routerLink="/movies" routerLinkActive="active-link">
-        <mat-icon matListIcon>movie</mat-icon>
-        <span>Películas</span>
-      </a>
+        <a *ngIf="rol === 'ADMIN'" mat-list-item routerLink="/listFunciones" routerLinkActive="active-link">
+          <mat-icon matListIcon>event</mat-icon>
+          <span>Listar Funciones</span>
+        </a>
 
-      <a mat-list-item routerLink="/clientes" routerLinkActive="active-link">
-        <mat-icon matListIcon>movie</mat-icon>
-        <span>Clientes</span>
-      </a>
+        <!-- Opciones para cualquier rol logueado -->
+        <a mat-list-item routerLink="/movies" routerLinkActive="active-link">
+          <mat-icon matListIcon>movie</mat-icon>
+          <span>Películas</span>
+        </a>
 
+        <a mat-list-item routerLink="/clientes" routerLinkActive="active-link">
+          <mat-icon matListIcon>people</mat-icon>
+          <span>Clientes</span>
+        </a>
 
-      <!-- Botón de logout visible solo si está logueado -->
-      <button *ngIf="rol" mat-button color="warn" (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        Cerrar sesión
-      </button>
+        <!-- Cerrar Sesión -->
+        <button mat-button color="warn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Cerrar sesión
+        </button>
+
+      </ng-container>
+
+      <!-- Apartado Login -->
+      <ng-template #loginSection>
+        <a mat-list-item routerLink="/login" routerLinkActive="active-link">
+          <mat-icon matListIcon>login</mat-icon>
+          <span>Iniciar Sesión</span>
+        </a>
+      </ng-template>
 
     </mat-nav-list>
   </mat-sidenav>

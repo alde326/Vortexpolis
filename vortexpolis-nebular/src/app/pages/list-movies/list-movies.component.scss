@@ -1,1 +1,48 @@
-/* list-movies.component.scss */
+.movies-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* OBLIGATORIO: ocupa todo el alto */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+mat-card-title {
+  text-align: center;
+}
+
+mat-card-image {
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* El contenedor flexible que empuja los botones al final */
+.movie-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Esto es lo que obliga a ocupar todo el espacio restante */
+}
+
+mat-card-content {
+  flex: 1; /* Esto hace que el contenido ocupe todo el espacio que pueda */
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+
+.movie-card button {
+  margin: 0;
+}

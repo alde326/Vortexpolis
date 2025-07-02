@@ -19,7 +19,7 @@ public class CompraMapper {
         dto.setEstado(compra.getEstado());
         dto.setClienteId(compra.getCliente().getId());
 
-        // Ya no puedes convertir entradas porque eliminaste la relación
+
         dto.setEntradasIds(null); // O elimina esta línea si no quieres devolverlo
 
         return dto;

@@ -7,6 +7,7 @@
 .movie-card {
   display: flex;
   flex-direction: column;
+  height: 100%; /* Para que la tarjeta ocupe todo el alto disponible */
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -25,7 +26,23 @@ mat-card-image {
   border-radius: 8px;
 }
 
+/* Contenedor flexible que empuja el botón hacia abajo */
+.movie-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Ocupar el espacio restante */
+}
+
+mat-card-content {
+  flex: 1; /* Empuja el botón hacia abajo */
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
 .movie-card button {
-  align-self: center;
-  margin-top: 12px;
+  margin: 0;
 }

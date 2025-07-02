@@ -1,25 +1,38 @@
-<div *ngIf="isLoading" class="spinner-container">
-  <mat-spinner></mat-spinner>
-</div>
+<div class="movies-grid">
 
-<div *ngIf="!isLoading && peliculas.length > 0">
-  <mat-grid-list cols="3" rowHeight="350px" gutterSize="16px">
-    <mat-grid-tile *ngFor="let pelicula of peliculas">
-      <mat-card>
-        <img mat-card-image [src]="pelicula.imagenUrl" alt="{{ pelicula.titulo }}" *ngIf="pelicula.imagenUrl">
+  <!-- Spinner de carga -->
+  <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <!-- Películas encontradas -->
+  <div *ngIf="!isLoading && peliculas.length > 0" class="movies-container">
+    <mat-card class="movie-card" *ngFor="let pelicula of peliculas">
+      
+      <mat-card-header>
         <mat-card-title>{{ pelicula.titulo }}</mat-card-title>
+      </mat-card-header>
+
+      <img mat-card-image [src]="pelicula.imagenUrl" alt="{{ pelicula.titulo }}" *ngIf="pelicula.imagenUrl">
+
+      <!-- Este div FLEXIBLE permite que el contenido empuje los botones al fondo -->
+      <div class="movie-card-content">
         <mat-card-content>
           <p>{{ pelicula.descripcion }}</p>
         </mat-card-content>
-        <mat-card-actions>
-            <button mat-button color="primary" [routerLink]="['/editar-pelicula', pelicula.id]">Editar</button>
-            <button mat-button color="warn" (click)="deshabilitarPelicula(pelicula.id!)">Deshabilitar</button>
-        </mat-card-actions>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
 
-<div *ngIf="!isLoading && peliculas.length === 0">
-  <p>No hay películas registradas.</p>
+        <mat-card-actions class="card-actions">
+          <button mat-button color="primary" [routerLink]="['/editar-pelicula', pelicula.id]">Editar</button>
+          <button mat-button color="warn" (click)="deshabilitarPelicula(pelicula.id!)">Deshabilitar</button>
+        </mat-card-actions>
+      </div>
+
+    </mat-card>
+  </div>
+
+  <!-- Si no hay películas -->
+  <div *ngIf="!isLoading && peliculas.length === 0">
+    <p>No hay películas registradas.</p>
+  </div>
+
 </div>

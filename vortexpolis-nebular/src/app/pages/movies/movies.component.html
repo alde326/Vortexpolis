@@ -8,16 +8,27 @@
 
   <div class="movies-container">
     <mat-card class="movie-card" *ngFor="let pelicula of peliculas | filterPeliculas:filtro">
+
       <mat-card-header>
         <mat-card-title>{{ pelicula.titulo }}</mat-card-title>
       </mat-card-header>
+
       <img mat-card-image [src]="pelicula.imagenUrl" alt="{{ pelicula.titulo }}">
-      <mat-card-content>
-        <p>{{ pelicula.descripcion }}</p>
-      </mat-card-content>
-      <button mat-raised-button color="primary" (click)="seleccionarPelicula(pelicula)">
-        Seleccionar
-      </button>
+
+      <!-- Contenedor flexible -->
+      <div class="movie-card-content">
+        <mat-card-content>
+          <p>{{ pelicula.descripcion }}</p>
+        </mat-card-content>
+
+        <!-- Botón siempre al fondo -->
+        <mat-card-actions class="card-actions">
+          <button mat-raised-button color="primary" (click)="seleccionarPelicula(pelicula)">
+            Seleccionar
+          </button>
+        </mat-card-actions>
+      </div>
+
     </mat-card>
   </div>
 </div>

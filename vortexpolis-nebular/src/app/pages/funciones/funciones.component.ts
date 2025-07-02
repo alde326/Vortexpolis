@@ -1,7 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FuncionesService } from 'src/app/services/funciones.service';
-import { Funcion } from 'src/app/models/funcion.models';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { FuncionesService } from 'src/app/services/funciones.service';
+import { PeliculaService } from 'src/app/services/pelicula.service';
+import { SalaService } from 'src/app/services/sala.service';
+import { CinesService } from 'src/app/services/cine.service';
+
+import { Funcion } from 'src/app/models/funcion.models';
+import { Pelicula } from 'src/app/models/pelicula.model';
+import { Sala } from 'src/app/models/sala.model';
+import { Cine } from 'src/app/models/cines.model';
 
 @Component({
   selector: 'app-funciones',
@@ -10,28 +18,57 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FuncionesComponent implements OnInit {
 
+  peliculas: Pelicula[] = [];
+  salas: Sala[] = [];
+  cines: Cine[] = [];
   funciones: Funcion[] = [];
   funcionForm: FormGroup;
   editando: boolean = false;
 
-  displayedColumns: string[] = ['fechaHora', 'salaId', 'precio','estado', 'acciones'];
+  displayedColumns: string[] = ['pelicula', 'fechaHora', 'salaId', 'precio', 'estado', 'acciones'];
 
-  constructor(private funcionesService: FuncionesService, private fb: FormBuilder) {
+  constructor(
+    private funcionesService: FuncionesService,
+    private peliculasService: PeliculaService,
+    private salaService: SalaService,
+    private cineService: CinesService,
+    private fb: FormBuilder
+  ) {
     this.funcionForm = this.fb.group({
       id: [null],
       fechaHora: ['', Validators.required],
       salaId: ['', Validators.required],
       peliculaId: ['', Validators.required],
       cineId: ['', Validators.required],
-      precioEntrada: [1000, [Validators.required, Validators.min(0)]], // Precio por defecto
+      precioEntrada: [1000, [Validators.required, Validators.min(0)]],
       estado: [true]
     });
   }
 
   ngOnInit(): void {
     this.obtenerFunciones();
+    this.obtenerPeliculas();
+    this.obtenerSalas();
+    this.obtenerCines();
   }
 
+  obtenerPeliculas(): void {
+    this.peliculasService.getPeliculas().subscribe(data => {
+      this.peliculas = data;
+    });
+  }
+
+  obtenerSalas(): void {
+    this.salaService.listarTodas().subscribe(data => {
+      this.salas = data;
+    });
+  }
+
+  obtenerCines(): void {
+    this.cineService.listarTodos().subscribe(data => {
+      this.cines = data;
+    });
+  }
 
   obtenerFunciones(): void {
     this.funcionesService.listarTodasLasFunciones().subscribe(data => {
@@ -53,7 +90,6 @@ export class FuncionesComponent implements OnInit {
     }
   }
 
-
   editar(funcion: Funcion): void {
     this.editando = true;
     this.funcionForm.patchValue(funcion);
@@ -71,4 +107,9 @@ export class FuncionesComponent implements OnInit {
     this.editando = false;
     this.funcionForm.reset({ estado: true });
   }
-}
+
+  obtenerNombrePelicula(peliculaId: number): string {
+    const pelicula = this.peliculas.find(p => p.id === peliculaId);
+    return pelicula ? pelicula.titulo : 'Desconocida';
+  }
+  }
