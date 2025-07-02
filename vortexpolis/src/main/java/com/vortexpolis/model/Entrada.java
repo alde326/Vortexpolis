@@ -1,5 +1,7 @@
 package com.vortexpolis.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ public class Entrada {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_compra")
+    @JsonBackReference  
     private Compra compra;
 
     @ManyToOne(fetch = FetchType.LAZY)

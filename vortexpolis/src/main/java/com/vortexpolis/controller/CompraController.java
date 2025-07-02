@@ -23,14 +23,15 @@ public class CompraController {
     @Autowired
     private CompraMapper compraMapper;
 
-    // Registrar compra (recibe y devuelve DTO)
+    // Registrar compra (recibe CompraRequestDTO, devuelve CompraDTO)
     @PostMapping
     public ResponseEntity<CompraDTO> registrarCompra(@Valid @RequestBody CompraRequestDTO compraRequestDTO) {
         Compra nuevaCompra = compraService.registrarCompra(compraRequestDTO);
         CompraDTO nuevaCompraDTO = compraMapper.toDTO(nuevaCompra);
         return ResponseEntity.ok(nuevaCompraDTO);
     }
-    // Listar todas las compras (devuelve DTOs)
+
+    // Listar todas las compras (devuelve lista de CompraDTO)
     @GetMapping
     public ResponseEntity<List<CompraDTO>> listarTodasLasCompras() {
         List<Compra> compras = compraService.listarTodasLasCompras();
@@ -38,7 +39,7 @@ public class CompraController {
         return ResponseEntity.ok(comprasDTO);
     }
 
-    // Consultar compras por cliente (devuelve DTOs)
+    // Consultar compras por cliente (devuelve lista de CompraDTO)
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<List<CompraDTO>> consultarComprasPorCliente(@PathVariable Long clienteId) {
         List<Compra> compras = compraService.consultarComprasPorCliente(clienteId);

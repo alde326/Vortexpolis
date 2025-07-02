@@ -2,6 +2,10 @@ package com.vortexpolis.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
@@ -33,11 +37,8 @@ public class Compra {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente")
+    @JsonIgnore
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Entrada> entradas = new ArrayList<>();
 
-    @OneToOne(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Pago pago;
 }
